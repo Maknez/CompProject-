@@ -16,61 +16,61 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_toolButton_clicked()
 {
-    system("pwd");
-    system("java Sound beep.wav");
+   // system("pwd");
+   // system("java Sound beep.wav");
 }
 
 void MainWindow::on_toolButton_2_clicked()
 {
-    system("java Sound beep2.wav");
+    //system("java Sound beep2.wav");
 }
 
 void MainWindow::on_toolButton_3_clicked()
 {
-    system("java Sound beep3.wav");
+    //system("java Sound beep3.wav");
 }
 
 void MainWindow::on_toolButton_6_clicked()
 {
-    system("java Sound beep4.wav");
+    //system("java Sound beep4.wav");
 }
 
 void MainWindow::on_toolButton_4_clicked()
 {
-    system("say H");
+    //system("say H");
 }
 
 void MainWindow::on_toolButton_5_clicked()
 {
-    system("say E");
+   // system("say E");
 }
 
 void MainWindow::on_toolButton_9_clicked()
 {
-    system("say L");
+    //system("say L");
 }
 
 void MainWindow::on_toolButton_7_clicked()
 {
-    system("say L");
+   // system("say L");
 }
 
 void MainWindow::on_toolButton_8_clicked()
 {
-    system("say O");
+    //system("say O");
 }
 
 void MainWindow::on_toolButton_10_clicked()
 {
-    system("say U");
+   // system("say U");
 }
 
 void MainWindow::on_toolButton_11_clicked()
 {
-    system("say A");
+    //system("say A");
 }
 
 void MainWindow::on_toolButton_12_clicked()
 {
-    system("say P");
+    //system("say P");
 }
