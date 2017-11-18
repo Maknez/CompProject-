@@ -1,7 +1,14 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <stdlib.h>
+#include <iostream>
+#include <windows.h>
 
+//these two headers are already included in the <Windows.h> header
+#pragma comment(lib, "Winmm.lib")
+
+
+using namespace std;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -16,61 +23,60 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_toolButton_clicked()
 {
-   // system("pwd");
-   // system("java Sound beep.wav");
-}
+	PlaySound(TEXT("beep.wav"), NULL, SND_ASYNC);
+ }
 
 void MainWindow::on_toolButton_2_clicked()
 {
-    //system("java Sound beep2.wav");
+	PlaySound(TEXT("beep.wav"), NULL, SND_ASYNC);
 }
 
 void MainWindow::on_toolButton_3_clicked()
 {
-    //system("java Sound beep3.wav");
+	PlaySound(TEXT("beep.wav"), NULL, SND_ASYNC);
 }
 
 void MainWindow::on_toolButton_6_clicked()
 {
-    //system("java Sound beep4.wav");
+	PlaySound(TEXT("beep.wav"), NULL, SND_ASYNC);
 }
 
 void MainWindow::on_toolButton_4_clicked()
 {
-    //system("say H");
+	PlaySound(TEXT("beep.wav"), NULL, SND_ASYNC);
 }
 
 void MainWindow::on_toolButton_5_clicked()
 {
-   // system("say E");
+	PlaySound(TEXT("beep.wav"), NULL, SND_ASYNC);
 }
 
 void MainWindow::on_toolButton_9_clicked()
 {
-    //system("say L");
+ 	PlaySound(TEXT("beep.wav"), NULL, SND_ASYNC);
 }
 
 void MainWindow::on_toolButton_7_clicked()
 {
-   // system("say L");
+ 	PlaySound(TEXT("beep.wav"), NULL, SND_ASYNC);
 }
 
 void MainWindow::on_toolButton_8_clicked()
 {
-    //system("say O");
+ 	PlaySound(TEXT("beep.wav"), NULL, SND_ASYNC);
 }
 
 void MainWindow::on_toolButton_10_clicked()
 {
-   // system("say U");
+ 	PlaySound(TEXT("beep.wav"), NULL, SND_ASYNC);
 }
 
 void MainWindow::on_toolButton_11_clicked()
 {
-    //system("say A");
+ 	PlaySound(TEXT("beep.wav"), NULL, SND_ASYNC);
 }
 
 void MainWindow::on_toolButton_12_clicked()
 {
-    //system("say P");
+ 	PlaySound(TEXT("beep.wav"), NULL, SND_ASYNC);
 }
