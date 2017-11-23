@@ -49,7 +49,7 @@ int main(int argc, char** argv)
 	String label;
 	String zmiennaWejsciowa = argv[1];
 
-	cout <<"Obraz " << zmiennaWejsciowa << ".jpg \n";
+	cout << "Obraz " << zmiennaWejsciowa << ".jpg \n";
 	imgOriginal = imread("TestImages/FlashImages/InputTestImages/" + zmiennaWejsciowa + ".jpg");          // open image
 
 	if (imgOriginal.empty()) {                                  // if unable to open image
@@ -83,22 +83,22 @@ int main(int argc, char** argv)
 
 	cout << "Point position x = " << v3fCircles[0][0] << ", y = " << v3fCircles[0][1] << "\n"; // Cross position x, y
 
-	label = "X = " + numberToString(v3fCircles[0][0]) + " || Y = " + numberToString(v3fCircles[0][1]); // Dodawanie tekstu do Labela
+	label = "X = " + numberToString((int)v3fCircles[0][0]) + " || Y = " + numberToString((int)v3fCircles[0][1]); // Dodawanie tekstu do Labela
 
-	poziomXpoczatek.x = (v3fCircles[0][0] - 10);
-	poziomXpoczatek.y = v3fCircles[0][1];
-	poziomXkoniec.x = (v3fCircles[0][0] + 10);
-	poziomXkoniec.y = v3fCircles[0][1];
+	poziomXpoczatek.x = (int)(v3fCircles[0][0] - 10);
+	poziomXpoczatek.y = (int)v3fCircles[0][1];
+	poziomXkoniec.x = (int)(v3fCircles[0][0] + 10);
+	poziomXkoniec.y = (int)v3fCircles[0][1];
 
-	poziomYpoczatek.x = v3fCircles[0][0];
-	poziomYpoczatek.y = (v3fCircles[0][1] - 10);
-	poziomYkoniec.x = v3fCircles[0][0];
-	poziomYkoniec.y = (v3fCircles[0][1] + 10);
+	poziomYpoczatek.x = (int)v3fCircles[0][0];
+	poziomYpoczatek.y = (int)(v3fCircles[0][1] - 10);
+	poziomYkoniec.x = (int)v3fCircles[0][0];
+	poziomYkoniec.y = (int)(v3fCircles[0][1] + 10);
 
 	line(imgOriginal, poziomXpoczatek, poziomXkoniec, Scalar(0, 0, 255), 2, 8, 0);
 	line(imgOriginal, poziomYpoczatek, poziomYkoniec, Scalar(0, 0, 255), 2, 8, 0);
 	putText(imgOriginal, label, Point(10, 20), FONT_HERSHEY_PLAIN, 1.0, CV_RGB(255, 255, 255), 2.0);
-	
+
 	waitKey(30);
 	imwrite("TestImages/FlashImages/OutputTestImages/Binary/" + zmiennaWejsciowa + "BinaryImageTest.jpg", binaryImg);
 	imwrite("TestImages/FlashImages/OutputTestImages/Cross/" + zmiennaWejsciowa + "CrossImageTest.jpg", imgOriginal);

@@ -6,4 +6,6 @@ add_subdirectory(FlashFinder)
 
 add_subdirectory(FrameFinder)
 
+add_subdirectory(Prototype)
+
 add_subdirectory(GUI)
