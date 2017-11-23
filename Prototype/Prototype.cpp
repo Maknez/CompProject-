@@ -182,6 +182,15 @@ static void findSquares(const Mat& image, vector<vector<Point> >& squares) {
 	}
 }
 
+//Przerobic na funkcje przyjmujaca 3 punkty i zwracaj¹ca index
+
+
+//	(d/D)*3
+//	d - odleglosc punktu testowyPunkcik od poczatku
+//	D - szerokosc ramki
+// tak samo z wysokoscia (d/D)*4
+//Dodac rozciaganie ramki z 4 punktow nie z dwoch ;)
+//Zapisanie sciezek audio w tablicy
 
 static void drawSquares(Mat& image, const vector<vector<Point> >& squares, Point testowyPunkcik, String zmiennaWejsciowa) {
 	const Point* p = &squares[1][0];
@@ -265,6 +274,10 @@ static void drawSquares(Mat& image, const vector<vector<Point> >& squares, Point
 
 
 int main(int argc, char** argv) {
+	if (argc != 3) {
+		cout << "Blad";
+		return 0;
+	}
 	String zmiennaWejsciowa = argv[1];
 	String zmiennaWejsciowa2 = argv[2];
 
@@ -282,6 +295,6 @@ int main(int argc, char** argv) {
 	findSquares(image, squares);
 	drawSquares(image, squares, point, zmiennaWejsciowa); 
 
-	waitKey(20000);
+	waitKey(1000000);
 	return 0;
 }

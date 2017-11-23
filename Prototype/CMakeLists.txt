@@ -5,8 +5,6 @@ project (PrototypeApp)
 set(OpenCV_DIR "C:/opencv/opencvInstall")
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
-
-
 find_package(OpenCV    3.3.0    REQUIRED)
 
 include_directories(
@@ -18,3 +16,5 @@ add_executable(PrototypeApp
 )
 
 target_link_libraries(PrototypeApp ${OpenCV_LIBS})
+
+install(TARGETS PrototypeApp DESTINATION "C:\\opencv\\ProjectAppsInstall")

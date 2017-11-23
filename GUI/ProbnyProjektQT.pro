@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2017-11-07T14:37:35
+# Project created by QtCreator 2017-11-17T23:36:36
 #
 #-------------------------------------------------
 
@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = GUIappk
+TARGET = ProbnyProjektQT
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -32,8 +32,3 @@ HEADERS += \
 
 FORMS += \
         mainwindow.ui
-
-DISTFILES += \
-    ../sound/Sound.class \
-    ../sound/beep.wav \
-    ../sound/Sound.java
