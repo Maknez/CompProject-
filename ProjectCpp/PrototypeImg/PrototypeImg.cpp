@@ -210,57 +210,57 @@ static void drawSquares(Mat& image, const vector<vector<Point> >& squares, Point
 	if (testowyPunkcik.x > squares[1][0].x && testowyPunkcik.x < squares[1][0].x + szynaczy) {
 		if (testowyPunkcik.y > squares[1][0].y && testowyPunkcik.y < squares[1][0].y + wynary) {
 			cout << "PIERWSZY KWADRAT" << endl;
-			PlaySound(TEXT("C:/opencv/ProjectAppsBinaries/testSounds/1.wav"), NULL, SND_ASYNC);
+			PlaySound(TEXT("testSounds/1.wav"), NULL, SND_ASYNC);
 		}
 		else if (testowyPunkcik.y > squares[1][0].y + wynary && testowyPunkcik.y < squares[1][0].y + (2 * wynary)) {
 			cout << "CZWARTY KWADRAT" << endl;
-			PlaySound(TEXT("C:/opencv/ProjectAppsBinaries/testSounds/4.wav"), NULL, SND_ASYNC);
+			PlaySound(TEXT("testSounds/4.wav"), NULL, SND_ASYNC);
 		}
 		else if (testowyPunkcik.y > squares[1][0].y + 2 * wynary && testowyPunkcik.y < squares[1][0].y + (3 * wynary)) {
 			cout << "SIODMY KWADRAT" << endl;
-			PlaySound(TEXT("C:/opencv/ProjectAppsBinaries/testSounds/7.wav"), NULL, SND_ASYNC);
+			PlaySound(TEXT("testSounds/7.wav"), NULL, SND_ASYNC);
 
 		}
 		else if (testowyPunkcik.y > squares[1][0].y + 3 * wynary && testowyPunkcik.y < squares[1][0].y + (4 * wynary)) {
 			cout << "DZIESIATY KWADRAT" << endl;
-			PlaySound(TEXT("C:/opencv/ProjectAppsBinaries/testSounds/10.wav"), NULL, SND_ASYNC);
+			PlaySound(TEXT("testSounds/10.wav"), NULL, SND_ASYNC);
 		}
 
 	}
 	else if (testowyPunkcik.x > squares[1][0].x + szynaczy && testowyPunkcik.x < squares[1][0].x + (2 * szynaczy)) {
 		if (testowyPunkcik.y > squares[1][0].y && testowyPunkcik.y < squares[1][0].y + wynary) {
 			cout << "DRUGI KWADRAT" << endl;
-			PlaySound(TEXT("C:/opencv/ProjectAppsBinaries/testSounds/2.wav"), NULL, SND_ASYNC);
+			PlaySound(TEXT("testSounds/2.wav"), NULL, SND_ASYNC);
 		}
 		else if (testowyPunkcik.y > squares[1][0].y + wynary && testowyPunkcik.y < squares[1][0].y + (2 * wynary)) {
 			cout << "PIATY KWADRAT" << endl;
-			PlaySound(TEXT("C:/opencv/ProjectAppsBinaries/testSounds/5.wav"), NULL, SND_ASYNC);
+			PlaySound(TEXT("testSounds/5.wav"), NULL, SND_ASYNC);
 		}
 		else if (testowyPunkcik.y > squares[1][0].y + 2 * wynary && testowyPunkcik.y < squares[1][0].y + (3 * wynary)) {
 			cout << "OSMY KWADRAT" << endl;
-			PlaySound(TEXT("C:/opencv/ProjectAppsBinaries/testSounds/8.wav"), NULL, SND_ASYNC);
+			PlaySound(TEXT("testSounds/8.wav"), NULL, SND_ASYNC);
 		}
 		else if (testowyPunkcik.y > squares[1][0].y + 3 * wynary && testowyPunkcik.y < squares[1][0].y + (4 * wynary)) {
 			cout << "JEDENASTY KWADRAT" << endl;
-			PlaySound(TEXT("C:/opencv/ProjectAppsBinaries/testSounds/11.wav"), NULL, SND_ASYNC);
+			PlaySound(TEXT("testSounds/11.wav"), NULL, SND_ASYNC);
 		}
 	}
 	else if (testowyPunkcik.x > squares[1][0].x + (2 * szynaczy) && testowyPunkcik.x < squares[1][0].x + (3 * szynaczy)) {
 		if (testowyPunkcik.y > squares[1][0].y && testowyPunkcik.y < squares[1][0].y + wynary) {
 			cout << "TRZECI KWADRAT" << endl;
-			PlaySound(TEXT("C:/opencv/ProjectAppsBinaries/testSounds/3.wav"), NULL, SND_ASYNC);
+			PlaySound(TEXT("testSounds/3.wav"), NULL, SND_ASYNC);
 		}
 		else if (testowyPunkcik.y > squares[1][0].y + wynary && testowyPunkcik.y < squares[1][0].y + (2 * wynary)) {
 			cout << "SZOSTY KWADRAT" << endl;
-			PlaySound(TEXT("C:/opencv/ProjectAppsBinaries/testSounds/6.wav"), NULL, SND_ASYNC);
+			PlaySound(TEXT("testSounds/6.wav"), NULL, SND_ASYNC);
 		}
 		else if (testowyPunkcik.y > squares[1][0].y + 2 * wynary && testowyPunkcik.y < squares[1][0].y + (3 * wynary)) {
 			cout << "DZIEWIATY KWADRAT" << endl;
-			PlaySound(TEXT("C:/opencv/ProjectAppsBinaries/testSounds/9.wav"), NULL, SND_ASYNC);
+			PlaySound(TEXT("testSounds/9.wav"), NULL, SND_ASYNC);
 		}
 		else if (testowyPunkcik.y > squares[1][0].y + 3 * wynary && testowyPunkcik.y < squares[1][0].y + (4 * wynary)) {
 			cout << "DWUNASTY KWADRAT" << endl;
-			PlaySound(TEXT("C:/opencv/ProjectAppsBinaries/testSounds/12.wav"), NULL, SND_ASYNC);
+			PlaySound(TEXT("testSounds/12.wav"), NULL, SND_ASYNC);
 		}
 	}
 	else {

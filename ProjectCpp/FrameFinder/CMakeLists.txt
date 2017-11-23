@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 3.9.3)
 
 project (FrameFinderApp)
-
+set(CMAKE_INSTALL_PREFIX "C:/opencv/ProjectAppsInstall")
 set(OpenCV_DIR "C:/opencv/opencvInstall")
+set(OpenCV_B "C:/opencv/opencvInstall/x64/vc15/bin")
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 
