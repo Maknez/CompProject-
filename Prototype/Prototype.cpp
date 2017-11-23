@@ -13,7 +13,7 @@
 
 using namespace cv;
 using namespace std;
-
+//Init Comment
 const int FRAME_WIDTH = 576;
 const int FRAME_HEIGHT = 1024;
 int thresh = 50, N = 5;
