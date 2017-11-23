@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 #define _MSC_EXTENSIONS 
 #define _INTEGRAL_MAX_BITS 64
 #define _MSC_VER 1911
@@ -12,7 +12,7 @@
 #define _DEBUG 
 #define _MT 
 #define _DLL 
-=======
+
 #define _MSC_EXTENSIONS 
 #define _INTEGRAL_MAX_BITS 64
 #define _MSC_VER 1911
@@ -26,4 +26,4 @@
 #define _DEBUG 
 #define _MT 
 #define _DLL 
->>>>>>> 344e80406baa0e7ddfd4b11c4bf544b760beade1
+

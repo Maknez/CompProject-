@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <stdlib.h>
@@ -84,7 +84,7 @@ void MainWindow::on_toolButton_13_clicked()
 {
 	PlaySound(TEXT("C:/opencv/ProjectAppsBinaries/testSounds/3.wav"), NULL, SND_ASYNC);
 }
-=======
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <stdlib.h>
@@ -170,4 +170,3 @@ void MainWindow::on_toolButton_13_clicked()
 {
 	PlaySound(TEXT("C:/opencv/ProjectAppsBinaries/testSounds/3.wav"), NULL, SND_ASYNC);
 }
->>>>>>> 344e80406baa0e7ddfd4b11c4bf544b760beade1

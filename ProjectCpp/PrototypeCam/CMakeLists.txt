@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.9.3)
 
-project (PrototypeApp)
+project (PrototypeCamApp)
 
 set(OpenCV_DIR "C:/opencv/opencvInstall")
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -11,10 +11,10 @@ include_directories(
   ${OpenCV_INCLUDE_DIRS}
 )
 
-add_executable(PrototypeApp
-	Prototype.cpp
+add_executable(PrototypeCamApp
+	PrototypeCam.cpp
 )
 
-target_link_libraries(PrototypeApp ${OpenCV_LIBS})
+target_link_libraries(PrototypeCamApp ${OpenCV_LIBS})
 
-install(TARGETS PrototypeApp DESTINATION "C:\\opencv\\ProjectAppsInstall")
+install(TARGETS PrototypeCamApp DESTINATION "C:\\opencv\\ProjectAppsInstall")
