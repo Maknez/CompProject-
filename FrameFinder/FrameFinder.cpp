@@ -38,7 +38,7 @@ int main(int argc, char** argv)
 	Mat binaryImg2; // macierz widoku obrazu binarnego
 
 
-	
+
 
 	String zmiennaWejsciowa = argv[1];
 	cout << zmiennaWejsciowa << endl;
@@ -55,8 +55,8 @@ int main(int argc, char** argv)
 
 
 	cvtColor(imgOriginal, hsvImg, COLOR_BGR2HSV);
-	inRange(hsvImg, Scalar(0, 208, 0), Scalar(255, 226, 255), binaryImg1);
-	inRange(hsvImg, Scalar(0, 208, 0), Scalar(255, 226, 255), binaryImg2);
+	inRange(hsvImg, Scalar(168, 123, 0), Scalar(255, 256, 255), binaryImg1);
+	inRange(hsvImg, Scalar(35, 208, 121), Scalar(255, 255, 255), binaryImg2);
 	add(binaryImg1, binaryImg2, binaryImg);
 	resize(imgOriginal, imgOriginal, Size(FRAME_WIDTH, FRAME_HEIGHT));
 	resize(hsvImg, hsvImg, Size(FRAME_WIDTH, FRAME_HEIGHT));

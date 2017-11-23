@@ -16,7 +16,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_toolButton_clicked();
+    void on_toolButton_1_clicked();
 
     void on_toolButton_2_clicked();
 
@@ -39,6 +39,8 @@ private slots:
     void on_toolButton_11_clicked();
 
     void on_toolButton_12_clicked();
+
+	void on_toolButton_13_clicked();
 
 private:
     Ui::MainWindow *ui;
