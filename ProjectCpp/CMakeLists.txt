@@ -11,3 +11,5 @@ add_subdirectory(PrototypeImg)
 add_subdirectory(PrototypeCam)
 
 add_subdirectory(GUI)
+
+add_subdirectory(PrototypeShowBinaryCam)
