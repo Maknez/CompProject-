@@ -13,15 +13,15 @@
 
 using namespace cv;
 using namespace std;
-//Init Comment
-const int FRAME_WIDTH = 896;
-const int FRAME_HEIGHT = 504;
-int WINDOW_WIDTH;
-int WINDOW_HEIGHT;
+
+const int WINDOW_WIDTH = 896;
+const int WINDOW_HEIGHT = 504;
+int FRAME_WIDTH;
+int FRAME_HEIGHT;
 bool CAN_PLAY_SOUND = true;
 
 int thresh = 50, N = 5;
-const char* wndname = "Square Detection Demo";
+const char* wndname = "PrototypeAppView";
 
 int H_MIN = 0;
 int H_MAX = 256;
@@ -46,7 +46,6 @@ void frameFinder(Mat imgOriginal) {
 	Mat binaryImg1;
 	Mat binaryImg2;
 
-
 	bool trackObjects = false;
 	bool useMorphOps = true;
 
@@ -54,15 +53,13 @@ void frameFinder(Mat imgOriginal) {
 	inRange(hsvImg, Scalar(168, 123, 0), Scalar(255, 256, 255), binaryImg1);
 	inRange(hsvImg, Scalar(35, 208, 121), Scalar(255, 255, 255), binaryImg2);
 	add(binaryImg1, binaryImg2, binaryImg);
-	resize(imgOriginal, imgOriginal, Size(FRAME_WIDTH, FRAME_HEIGHT));
-	resize(hsvImg, hsvImg, Size(FRAME_WIDTH, FRAME_HEIGHT));
+	resize(imgOriginal, imgOriginal, Size(WINDOW_WIDTH, WINDOW_HEIGHT));
+	resize(hsvImg, hsvImg, Size(WINDOW_WIDTH, WINDOW_HEIGHT));
 
-	if (useMorphOps)
+	if (useMorphOps) {
 		morphOps(binaryImg);
-	//waitKey(30);
-	imwrite("1.jpg", binaryImg);
-
-	//return binaryImg;
+	}
+	imwrite("testImages/PrototypeImages/1.jpg", binaryImg);
 }
 
 String numberToString(int Number) {
@@ -88,20 +85,16 @@ Point flashFinder(Mat imgOriginal) {
 	bool ifFind = false;
 
 	cvtColor(imgOriginal, hsvImg, COLOR_BGR2HSV);
-	//inRange(hsvImg, Scalar(12, 0, 0), Scalar(39, 11, 255), binaryImg1);
 	inRange(hsvImg, Scalar(32, 11, 251), Scalar(255, 16, 255), binaryImg);
-	//add(binaryImg1, binaryImg2, binaryImg);
 	if (useMorphOps)
 		morphOps(binaryImg);
 
 	HoughCircles(binaryImg, v3fCircles, CV_HOUGH_GRADIENT, 2, binaryImg.rows / 4, 40, 20, 5, 400);
-	//if (v3fCircles.size() == 2 || v3fCircles.size() == 3 )
-		//ifFind = true;
 
+	
 		for (int i = 0; i < v3fCircles.size(); i++) {
-			cout << "Point position x = " << v3fCircles[0][0] << ", y = " << v3fCircles[0][1] << "\n";
-			p.x = v3fCircles[0][0];
-			p.y = v3fCircles[0][1];
+			p.x = (int)v3fCircles[0][0];
+			p.y = (int)v3fCircles[0][1];
 
 			poziomXpoczatek.x = (int)(v3fCircles[0][0] - 10);
 			poziomXpoczatek.y = (int)v3fCircles[0][1];
@@ -115,13 +108,11 @@ Point flashFinder(Mat imgOriginal) {
 
 			line(imgOriginal, poziomXpoczatek, poziomXkoniec, Scalar(0, 0, 255), 2, 8, 0);
 			line(imgOriginal, poziomYpoczatek, poziomYkoniec, Scalar(0, 0, 255), 2, 8, 0);
-			putText(imgOriginal, label, Point(10, 20), FONT_HERSHEY_PLAIN, 1.0, CV_RGB(255, 255, 255), 2.0);
 			imshow(wndname, imgOriginal);
-			imshow("y", binaryImg);
+			imshow("FlashView", binaryImg);
 			waitKey(30);
-			//ifFind = false;
-		}
-		return p;
+	}
+	return p;
 }
 
 static double angle(Point pt1, Point pt2, Point pt0) {
@@ -138,7 +129,6 @@ static void findSquares(const Mat& image, vector<vector<Point> >& squares) {
 	Mat timg(image);
 	medianBlur(image, timg, 9);
 	Mat gray0(timg.size(), CV_8U), gray;
-	//imshow("nowe", gray0);
 	vector<vector<Point> > contours;
 
 	for (int c = 0; c < 3; c++) {
@@ -174,7 +164,6 @@ static void findSquares(const Mat& image, vector<vector<Point> >& squares) {
 			}
 		}
 	}
-	//imwrite("1.jpg", timg);
 
 }
 
@@ -190,127 +179,77 @@ static void findSquares(const Mat& image, vector<vector<Point> >& squares) {
 
 static void playSound(const vector<vector<Point> >& squares, Point testowyPunkcik) {
 	
-	int szynaczy = WINDOW_WIDTH / 3;
-	int wynary = WINDOW_HEIGHT / 4;
+	int szynaczy = FRAME_WIDTH / 3;
+	int wynary = FRAME_HEIGHT / 4;
 
 	if (testowyPunkcik.x > squares[1][0].x && testowyPunkcik.x < squares[1][0].x + szynaczy) {
 		if (testowyPunkcik.y > squares[1][0].y && testowyPunkcik.y < squares[1][0].y + wynary) {
-			cout << "PIERWSZY KWADRAT" << endl;
-			if (CAN_PLAY_SOUND == true) {
-				CAN_PLAY_SOUND = false;
-				PlaySound(TEXT("testSounds/1.wav"), NULL, SND_ASYNC);
+			cout << "TRZECI KWADRAT" << endl;
+				PlaySound(TEXT("testSounds/3.wav"), NULL, SND_ASYNC);
 				waitKey(1000);
-				CAN_PLAY_SOUND = true;
-			}
 		}
 		else if (testowyPunkcik.y > squares[1][0].y + wynary && testowyPunkcik.y < squares[1][0].y + (2 * wynary)) {
-			cout << "CZWARTY KWADRAT" << endl;
-			if (CAN_PLAY_SOUND == true) {
-				CAN_PLAY_SOUND = false;
-				PlaySound(TEXT("testSounds/4.wav"), NULL, SND_ASYNC);
+			cout << "SZOSTY KWADRAT" << endl;
+				PlaySound(TEXT("testSounds/6.wav"), NULL, SND_ASYNC);
 				waitKey(1000);
-				CAN_PLAY_SOUND = true;
-			}
 		}
 		else if (testowyPunkcik.y > squares[1][0].y + 2 * wynary && testowyPunkcik.y < squares[1][0].y + (3 * wynary)) {
-			cout << "SIODMY KWADRAT" << endl;
-			if (CAN_PLAY_SOUND == true) {
-				CAN_PLAY_SOUND = false;
-				PlaySound(TEXT("testSounds/7.wav"), NULL, SND_ASYNC);
+			cout << "DZIEWIATY KWADRAT" << endl;
+				PlaySound(TEXT("testSounds/9.wav"), NULL, SND_ASYNC);
 				waitKey(1000);
-				CAN_PLAY_SOUND = true;
-			}
 		}
 		else if (testowyPunkcik.y > squares[1][0].y + 3 * wynary && testowyPunkcik.y < squares[1][0].y + (4 * wynary)) {
-			cout << "DZIESIATY KWADRAT" << endl;
-			if (CAN_PLAY_SOUND == true) {
-				CAN_PLAY_SOUND = false;
-				PlaySound(TEXT("testSounds/10.wav"), NULL, SND_ASYNC);
+			cout << "DWUNASTY KWADRAT" << endl;
+				PlaySound(TEXT("testSounds/12.wav"), NULL, SND_ASYNC);
 				waitKey(1000);
-				CAN_PLAY_SOUND = true;
-			}
 		}
 
 	}
 	else if (testowyPunkcik.x > squares[1][0].x + szynaczy && testowyPunkcik.x < squares[1][0].x + (2 * szynaczy)) {
 		if (testowyPunkcik.y > squares[1][0].y && testowyPunkcik.y < squares[1][0].y + wynary) {
 			cout << "DRUGI KWADRAT" << endl;
-			if (CAN_PLAY_SOUND == true) {
-				CAN_PLAY_SOUND = false;
 				PlaySound(TEXT("testSounds/2.wav"), NULL, SND_ASYNC);
 				waitKey(1000);
-				CAN_PLAY_SOUND = true;
-			}
 		}
 		else if (testowyPunkcik.y > squares[1][0].y + wynary && testowyPunkcik.y < squares[1][0].y + (2 * wynary)) {
 			cout << "PIATY KWADRAT" << endl;
-			if (CAN_PLAY_SOUND == true) {
-				CAN_PLAY_SOUND = false;
 				PlaySound(TEXT("testSounds/5.wav"), NULL, SND_ASYNC);
 				waitKey(1000);
-				CAN_PLAY_SOUND = true;
-			}
 		}
 		else if (testowyPunkcik.y > squares[1][0].y + 2 * wynary && testowyPunkcik.y < squares[1][0].y + (3 * wynary)) {
 			cout << "OSMY KWADRAT" << endl;
-			if (CAN_PLAY_SOUND == true) {
-				CAN_PLAY_SOUND = false;
 				PlaySound(TEXT("testSounds/8.wav"), NULL, SND_ASYNC);
 				waitKey(1000);
-				CAN_PLAY_SOUND = true;
-			}
 		}
 		else if (testowyPunkcik.y > squares[1][0].y + 3 * wynary && testowyPunkcik.y < squares[1][0].y + (4 * wynary)) {
 			cout << "JEDENASTY KWADRAT" << endl;
-			if (CAN_PLAY_SOUND == true) {
-				CAN_PLAY_SOUND = false;
 				PlaySound(TEXT("testSounds/11.wav"), NULL, SND_ASYNC);
 				waitKey(1000);
-				CAN_PLAY_SOUND = true;
-			}
 		}
 	}
 	else if (testowyPunkcik.x > squares[1][0].x + (2 * szynaczy) && testowyPunkcik.x < squares[1][0].x + (3 * szynaczy)) {
 		if (testowyPunkcik.y > squares[1][0].y && testowyPunkcik.y < squares[1][0].y + wynary) {
-			cout << "TRZECI KWADRAT" << endl;
-			if (CAN_PLAY_SOUND == true) {
-				CAN_PLAY_SOUND = false;
-				PlaySound(TEXT("testSounds/3.wav"), NULL, SND_ASYNC);
+			cout << "PIERWSZY KWADRAT" << endl;
+				PlaySound(TEXT("testSounds/1.wav"), NULL, SND_ASYNC);
 				waitKey(1000);
-				CAN_PLAY_SOUND = true;
-			}
 		}
 		else if (testowyPunkcik.y > squares[1][0].y + wynary && testowyPunkcik.y < squares[1][0].y + (2 * wynary)) {
-			cout << "SZOSTY KWADRAT" << endl;
-			if (CAN_PLAY_SOUND == true) {
-				CAN_PLAY_SOUND = false;
-				PlaySound(TEXT("testSounds/6.wav"), NULL, SND_ASYNC);
+			cout << "CZWARTY KWADRAT" << endl;
+				PlaySound(TEXT("testSounds/4.wav"), NULL, SND_ASYNC);
 				waitKey(1000);
-				CAN_PLAY_SOUND = true;
-			}
 		}
 		else if (testowyPunkcik.y > squares[1][0].y + 2 * wynary && testowyPunkcik.y < squares[1][0].y + (3 * wynary)) {
-			cout << "DZIEWIATY KWADRAT" << endl;
-			if (CAN_PLAY_SOUND == true) {
-				CAN_PLAY_SOUND = false;
-				PlaySound(TEXT("testSounds/9.wav"), NULL, SND_ASYNC);
+			cout << "SIODMY KWADRAT" << endl;
+				PlaySound(TEXT("testSounds/7.wav"), NULL, SND_ASYNC);
 				waitKey(1000);
-				CAN_PLAY_SOUND = true;
-			}
 		}
 		else if (testowyPunkcik.y > squares[1][0].y + 3 * wynary && testowyPunkcik.y < squares[1][0].y + (4 * wynary)) {
-			cout << "DWUNASTY KWADRAT" << endl;
-			if (CAN_PLAY_SOUND == true) {
-				CAN_PLAY_SOUND = false;
-				PlaySound(TEXT("testSounds/12.wav"), NULL, SND_ASYNC);
+			cout << "DZIESIATY KWADRAT" << endl;
+				PlaySound(TEXT("testSounds/10.wav"), NULL, SND_ASYNC);
 				waitKey(1000);
-				CAN_PLAY_SOUND = true;
-			}
 		}
 	}
 	else {
-		cout << "Cos sie popsulo po calosci ;)" << endl;
-		cout << "Mati ma³y programista c++" << endl;
 	}
 
 
@@ -321,8 +260,8 @@ Mat drawSquares(const vector<vector<Point> >& squares, Mat image_) {
 	int n = (int)squares[1].size();
 	if (p->x > 3 && p->y > 3)
 		polylines(image_, &p, &n, 1, true, Scalar(0, 255, 0), 3, LINE_AA);
-	WINDOW_HEIGHT = abs(squares[1][0].y - squares[4][2].y);
-	WINDOW_WIDTH = abs(squares[4][2].x - squares[1][0].x);
+	FRAME_HEIGHT = abs(squares[1][0].y - squares[4][2].y);
+	FRAME_WIDTH = abs(squares[4][2].x - squares[1][0].x);
 	//Rect rectangle = Rect(squares[1][0].x, squares[1][0].y, szerokosc, wysokosc);
 	//Mat croppedImage = image_(rectangle);
 	imshow(wndname, image_);
@@ -332,42 +271,38 @@ Mat drawSquares(const vector<vector<Point> >& squares, Mat image_) {
 
 int main(int argc, char** argv) {
 
-	//Point point = flashFinder();
-
 	Mat imgOriginal;
 	VideoCapture vCapture;
 	vCapture.open(0);
-	vCapture.set(CV_CAP_PROP_FRAME_WIDTH, FRAME_WIDTH);
-	vCapture.set(CV_CAP_PROP_FRAME_HEIGHT, FRAME_HEIGHT);
+	vCapture.set(CV_CAP_PROP_FRAME_WIDTH, WINDOW_WIDTH);
+	vCapture.set(CV_CAP_PROP_FRAME_HEIGHT, WINDOW_HEIGHT);
 	unsigned char znak;
 	bool bul = false;
-	namedWindow(wndname, 1);
+
 	vector<vector<Point> > squares;
 	Mat image;
 	Point p;
 
 	while (!bul) {
 
-		cout << "Wciœnij ENTER, aby skalibrowaæ aplikacjê..." << endl;
+		cout << "Wciœnij ENTER, aby skalibrowaæ aplikacje..." << endl;
 		znak = getch();
 		
 		if (znak == 13) {
+			namedWindow(wndname, 1);
 			vCapture.read(imgOriginal);
 			frameFinder(imgOriginal);
-			//imwrite("1.jpg", imgOriginal);
 
-			image = imread("1.jpg", 1);
+			image = imread("testImages/PrototypeImages/1.jpg", 1);
 			if (imgOriginal.empty()) {
 				cout << "error: image not read from file\n\n";
-				_getch();
 				system("PAUSE");
 			}
 			try {
 				findSquares(image, squares);
 				drawSquares(squares, image);
 			}
-			catch (Exception e)
-			{
+			catch (Exception e)	{
 				cout << e.code<< endl;
 			}
 			bul = true;
