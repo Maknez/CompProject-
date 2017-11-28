@@ -6,181 +6,181 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>677</width>
-    <height>183</height>
+    <width>291</width>
+    <height>405</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QToolButton" name="toolButton_1">
+   <widget class="QToolButton" name="toolButton">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>70</y>
-      <width>71</width>
-      <height>61</height>
+      <x>50</x>
+      <y>20</y>
+      <width>51</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>C</string>
+     <string>1</string>
     </property>
    </widget>
    <widget class="QToolButton" name="toolButton_2">
     <property name="geometry">
      <rect>
-      <x>60</x>
+      <x>120</x>
       <y>20</y>
-      <width>71</width>
-      <height>61</height>
+      <width>51</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>CIS</string>
+     <string>2</string>
     </property>
    </widget>
    <widget class="QToolButton" name="toolButton_3">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>70</y>
-      <width>71</width>
-      <height>61</height>
+      <x>190</x>
+      <y>20</y>
+      <width>51</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>D</string>
+     <string>3</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>300</y>
+      <width>113</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Zmień</string>
     </property>
    </widget>
    <widget class="QToolButton" name="toolButton_4">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>20</y>
-      <width>71</width>
-      <height>61</height>
+      <x>50</x>
+      <y>90</y>
+      <width>51</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>DIS</string>
+     <string>4</string>
     </property>
    </widget>
    <widget class="QToolButton" name="toolButton_5">
     <property name="geometry">
      <rect>
-      <x>180</x>
-      <y>70</y>
-      <width>71</width>
-      <height>61</height>
+      <x>120</x>
+      <y>90</y>
+      <width>51</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>E</string>
+     <string>5</string>
     </property>
    </widget>
    <widget class="QToolButton" name="toolButton_6">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>70</y>
-      <width>71</width>
-      <height>61</height>
+      <x>190</x>
+      <y>90</y>
+      <width>51</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>F</string>
+     <string>6</string>
     </property>
    </widget>
    <widget class="QToolButton" name="toolButton_7">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>20</y>
-      <width>71</width>
-      <height>61</height>
+      <x>50</x>
+      <y>160</y>
+      <width>51</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>FIS</string>
+     <string>7</string>
     </property>
    </widget>
    <widget class="QToolButton" name="toolButton_8">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>70</y>
-      <width>71</width>
-      <height>61</height>
+      <x>120</x>
+      <y>160</y>
+      <width>51</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>G</string>
+     <string>8</string>
     </property>
    </widget>
    <widget class="QToolButton" name="toolButton_9">
     <property name="geometry">
      <rect>
-      <x>380</x>
-      <y>20</y>
-      <width>71</width>
-      <height>61</height>
+      <x>190</x>
+      <y>160</y>
+      <width>51</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>GIS</string>
+     <string>9</string>
     </property>
    </widget>
    <widget class="QToolButton" name="toolButton_10">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>70</y>
-      <width>71</width>
-      <height>61</height>
+      <x>50</x>
+      <y>230</y>
+      <width>51</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>A</string>
+     <string>10</string>
     </property>
    </widget>
    <widget class="QToolButton" name="toolButton_11">
     <property name="geometry">
      <rect>
-      <x>460</x>
-      <y>20</y>
-      <width>71</width>
-      <height>61</height>
+      <x>120</x>
+      <y>230</y>
+      <width>51</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>AIS</string>
+     <string>11</string>
     </property>
    </widget>
    <widget class="QToolButton" name="toolButton_12">
     <property name="geometry">
      <rect>
-      <x>500</x>
-      <y>70</y>
-      <width>71</width>
-      <height>61</height>
+      <x>190</x>
+      <y>230</y>
+      <width>51</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>H</string>
-    </property>
-   </widget>
-   <widget class="QToolButton" name="toolButton_13">
-    <property name="geometry">
-     <rect>
-      <x>580</x>
-      <y>70</y>
-      <width>71</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>C</string>
+     <string>12</string>
     </property>
    </widget>
   </widget>
@@ -189,8 +189,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>677</width>
-     <height>21</height>
+     <width>291</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>
