@@ -45,10 +45,10 @@ void MainWindow::playSound(QString path) {
     // MAC OS X -> /Users/michalparysz/Desktop/build-flashfinder-Desktop_Qt_5_9_2_clang_64bit-Debug/flashfinder.app/Contents/MacOS
     //path.prepend("java Sound ");
 
-    const char * command = path.toLocal8Bit().data();
+    //const char * command = path.toLocal8Bit().data();
 
     // WINDOWS -> C:/opencv/ProjectAppsBinaries/testSounds/3.wav
-    PlaySound(TEXT("C:/opencv/ProjectAppsBinaries/testSounds/" + command), NULL, SND_ASYNC);
+    //PlaySound(TEXT("C:/opencv/ProjectAppsBinaries/testSounds/" + command), NULL, SND_ASYNC);
 
     //system(command);
 }
@@ -90,7 +90,7 @@ void MainWindow::setButton12(QString path) {
 }
 void MainWindow::on_toolButton_clicked()
 {
-    system("pwd");
+    //system("pwd");
     playSound(button1);
 }
 

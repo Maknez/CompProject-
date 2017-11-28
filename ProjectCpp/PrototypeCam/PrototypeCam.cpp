@@ -18,7 +18,6 @@ const int WINDOW_WIDTH = 896;
 const int WINDOW_HEIGHT = 504;
 int FRAME_WIDTH;
 int FRAME_HEIGHT;
-bool CAN_PLAY_SOUND = true;
 
 int thresh = 50, N = 5;
 const char* wndname = "PrototypeAppView";

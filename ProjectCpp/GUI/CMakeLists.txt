@@ -12,12 +12,16 @@ set(GUI_SRCS
 main.cpp
 mainwindow.cpp
 moc_mainwindow.cpp
+settings.cpp
+moc_settings.cpp
 )
 
 set(GUI_HEADERS
 mainwindow.h
 ui_mainwindow.h
 moc_predefs.h
+settings.h
+ui_settings.h
 ) 
 
 add_executable(GUI ${GUI_SRCS} ${GUI_HEADERS})
