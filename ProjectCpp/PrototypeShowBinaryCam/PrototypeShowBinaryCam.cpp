@@ -17,8 +17,8 @@ const int FRAME_HEIGHT = 504;
 
 void morphOps(Mat &thresh) {
 
-	Mat erodeElement = getStructuringElement(MORPH_RECT, Size(1, 1));
-	Mat dilateElement = getStructuringElement(MORPH_RECT, Size(12, 12));
+	Mat erodeElement = getStructuringElement(MORPH_RECT, Size(3, 3));
+	Mat dilateElement = getStructuringElement(MORPH_RECT, Size(8, 8));
 	erode(thresh, thresh, erodeElement);
 	erode(thresh, thresh, erodeElement);
 	dilate(thresh, thresh, dilateElement);
@@ -36,8 +36,8 @@ void frameFinder(Mat imgOriginal) {
 	bool useMorphOps = true;
 
 	cvtColor(imgOriginal, hsvImg, COLOR_BGR2HSV);
-	inRange(hsvImg, Scalar(168, 123, 0), Scalar(255, 256, 255), binaryImg1);
-	inRange(hsvImg, Scalar(35, 208, 121), Scalar(255, 255, 255), binaryImg2);
+	inRange(imgOriginal, Scalar(0, 0, 110), Scalar(75, 95, 246), binaryImg1);
+	inRange(imgOriginal, Scalar(25, 54, 161), Scalar(255, 96, 255), binaryImg2);
 	add(binaryImg1, binaryImg2, binaryImg);
 	resize(imgOriginal, imgOriginal, Size(FRAME_WIDTH, FRAME_HEIGHT));
 	resize(hsvImg, hsvImg, Size(FRAME_WIDTH, FRAME_HEIGHT));

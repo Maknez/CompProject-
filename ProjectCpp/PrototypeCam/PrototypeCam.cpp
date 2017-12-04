@@ -31,32 +31,44 @@ int V_MAX = 256;
 
 void morphOps(Mat &thresh) {
 
-	Mat erodeElement = getStructuringElement(MORPH_RECT, Size(1, 1));
-	Mat dilateElement = getStructuringElement(MORPH_RECT, Size(12, 12));
+	Mat erodeElement = getStructuringElement(MORPH_RECT, Size(3, 3));
+	Mat dilateElement = getStructuringElement(MORPH_RECT, Size(8, 8));
 	erode(thresh, thresh, erodeElement);
 	erode(thresh, thresh, erodeElement);
 	dilate(thresh, thresh, dilateElement);
 	dilate(thresh, thresh, dilateElement);
 }
 
-void frameFinder(Mat imgOriginal) {
+void frameFinder() {
 	Mat hsvImg;
 	Mat binaryImg;
 	Mat binaryImg1;
 	Mat binaryImg2;
-
+	Mat imgOriginal;
 	bool trackObjects = false;
 	bool useMorphOps = true;
+	VideoCapture vCapture;
+	vCapture.open(0);
+	vCapture.set(CV_CAP_PROP_FRAME_WIDTH, WINDOW_WIDTH);
+	vCapture.set(CV_CAP_PROP_FRAME_HEIGHT, WINDOW_HEIGHT);
+	
 
-	cvtColor(imgOriginal, hsvImg, COLOR_BGR2HSV);
-	inRange(hsvImg, Scalar(168, 123, 0), Scalar(255, 256, 255), binaryImg1);
-	inRange(hsvImg, Scalar(35, 208, 121), Scalar(255, 255, 255), binaryImg2);
-	add(binaryImg1, binaryImg2, binaryImg);
-	resize(imgOriginal, imgOriginal, Size(WINDOW_WIDTH, WINDOW_HEIGHT));
-	resize(hsvImg, hsvImg, Size(WINDOW_WIDTH, WINDOW_HEIGHT));
+	while (kbhit()!=13) {
+		vCapture.read(imgOriginal);
 
-	if (useMorphOps) {
-		morphOps(binaryImg);
+
+		cvtColor(imgOriginal, hsvImg, COLOR_BGR2HSV);
+		inRange(imgOriginal, Scalar(25, 114, 117), Scalar(142, 179, 246), binaryImg1);
+		inRange(imgOriginal, Scalar(42, 56, 170), Scalar(200, 214, 255), binaryImg2);
+		add(binaryImg1, binaryImg2, binaryImg);
+		resize(imgOriginal, imgOriginal, Size(WINDOW_WIDTH, WINDOW_HEIGHT));
+		resize(hsvImg, hsvImg, Size(WINDOW_WIDTH, WINDOW_HEIGHT));
+
+		if (useMorphOps) {
+			morphOps(binaryImg);
+		}
+		imshow("FrameView", binaryImg);
+		waitKey(30);
 	}
 	imwrite("testImages/PrototypeImages/1.jpg", binaryImg);
 }
@@ -83,8 +95,8 @@ Point flashFinder(Mat imgOriginal) {
 	bool useMorphOps = true;
 	bool ifFind = false;
 
-	cvtColor(imgOriginal, hsvImg, COLOR_BGR2HSV);
-	inRange(hsvImg, Scalar(32, 11, 251), Scalar(255, 16, 255), binaryImg);
+	//cvtColor(imgOriginal, hsvImg, COLOR_BGR2HSV);
+	inRange(imgOriginal, Scalar(231, 254, 105), Scalar(255, 255, 238), binaryImg);
 	if (useMorphOps)
 		morphOps(binaryImg);
 
@@ -270,48 +282,37 @@ Mat drawSquares(const vector<vector<Point> >& squares, Mat image_) {
 
 int main(int argc, char** argv) {
 
+	unsigned char znak;
+	
+	vector<vector<Point> > squares;
+	Mat image;
+	Point p;
 	Mat imgOriginal;
 	VideoCapture vCapture;
 	vCapture.open(0);
 	vCapture.set(CV_CAP_PROP_FRAME_WIDTH, WINDOW_WIDTH);
 	vCapture.set(CV_CAP_PROP_FRAME_HEIGHT, WINDOW_HEIGHT);
-	unsigned char znak;
-	bool bul = false;
 
-	vector<vector<Point> > squares;
-	Mat image;
-	Point p;
 
-	while (!bul) {
-
-		cout << "Wciœnij ENTER, aby skalibrowaæ aplikacje..." << endl;
-		znak = getch();
+	cout << "Wciœnij ENTER, aby skalibrowaæ aplikacje..." << endl;
 		
-		if (znak == 13) {
-			namedWindow(wndname, 1);
-			vCapture.read(imgOriginal);
-			frameFinder(imgOriginal);
-
-			image = imread("testImages/PrototypeImages/1.jpg", 1);
-			if (imgOriginal.empty()) {
-				cout << "error: image not read from file\n\n";
-				system("PAUSE");
-			}
-			try {
-				findSquares(image, squares);
-				drawSquares(squares, image);
-			}
-			catch (Exception e)	{
-				cout << e.code<< endl;
-			}
-			bul = true;
-
-			waitKey(30);
-			system("PAUSE");
-		}
-
+		namedWindow(wndname, 1);
+		frameFinder();
+		
+	image = imread("testImages/PrototypeImages/1.jpg", 1);
+	if (imgOriginal.empty()) {
+		cout << "error: image not read from file\n\n";
+		system("PAUSE");
 	}
-
+	try {
+		findSquares(image, squares);
+		drawSquares(squares, image);
+	}
+	catch (Exception e)	{
+		cout << e.code<< endl;
+	}
+	
+	waitKey(30);
 	
 	while (1) {
 		vCapture.read(imgOriginal);
