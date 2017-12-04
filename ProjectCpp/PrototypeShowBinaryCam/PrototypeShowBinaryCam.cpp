@@ -36,8 +36,8 @@ void frameFinder(Mat imgOriginal) {
 	bool useMorphOps = true;
 
 	cvtColor(imgOriginal, hsvImg, COLOR_BGR2HSV);
-	inRange(imgOriginal, Scalar(0, 0, 110), Scalar(75, 95, 246), binaryImg1);
-	inRange(imgOriginal, Scalar(25, 54, 161), Scalar(255, 96, 255), binaryImg2);
+	inRange(imgOriginal, Scalar(25, 142, 140), Scalar(51, 179, 246), binaryImg1);
+	inRange(imgOriginal, Scalar(30, 56, 170), Scalar(82, 128, 255), binaryImg2);
 	add(binaryImg1, binaryImg2, binaryImg);
 	resize(imgOriginal, imgOriginal, Size(FRAME_WIDTH, FRAME_HEIGHT));
 	resize(hsvImg, hsvImg, Size(FRAME_WIDTH, FRAME_HEIGHT));

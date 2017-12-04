@@ -53,13 +53,13 @@ void frameFinder() {
 	vCapture.set(CV_CAP_PROP_FRAME_HEIGHT, WINDOW_HEIGHT);
 	
 
-	while (kbhit()!=13) {
+	while (!kbhit()) {
 		vCapture.read(imgOriginal);
 
 
 		cvtColor(imgOriginal, hsvImg, COLOR_BGR2HSV);
-		inRange(imgOriginal, Scalar(25, 114, 117), Scalar(142, 179, 246), binaryImg1);
-		inRange(imgOriginal, Scalar(42, 56, 170), Scalar(200, 214, 255), binaryImg2);
+		inRange(imgOriginal, Scalar(25, 142, 140), Scalar(51, 179, 246), binaryImg1);
+		inRange(imgOriginal, Scalar(30, 56, 170), Scalar(82, 128, 255), binaryImg2);
 		add(binaryImg1, binaryImg2, binaryImg);
 		resize(imgOriginal, imgOriginal, Size(WINDOW_WIDTH, WINDOW_HEIGHT));
 		resize(hsvImg, hsvImg, Size(WINDOW_WIDTH, WINDOW_HEIGHT));
@@ -70,6 +70,7 @@ void frameFinder() {
 		imshow("FrameView", binaryImg);
 		waitKey(30);
 	}
+	//vCapture.release();
 	imwrite("testImages/PrototypeImages/1.jpg", binaryImg);
 }
 
@@ -91,38 +92,44 @@ Point flashFinder(Mat imgOriginal) {
 	Point poziomYkoniec;
 	String label;
 	Point p;
+	cout << "Test1" << endl;
 	bool trackObjects = false;
 	bool useMorphOps = true;
 	bool ifFind = false;
-
-	//cvtColor(imgOriginal, hsvImg, COLOR_BGR2HSV);
-	inRange(imgOriginal, Scalar(231, 254, 105), Scalar(255, 255, 238), binaryImg);
+	cout << "Test2" << endl;
+	cvtColor(imgOriginal, hsvImg, COLOR_BGR2HSV);
+	inRange(hsvImg, Scalar(231, 254, 105), Scalar(255, 255, 238), binaryImg);
+	cout << "Test3" << endl;
 	if (useMorphOps)
 		morphOps(binaryImg);
-
+	cout << "Test4" << endl;
 	HoughCircles(binaryImg, v3fCircles, CV_HOUGH_GRADIENT, 2, binaryImg.rows / 4, 40, 20, 5, 400);
-
+	cout << "Test5" << endl;
 	
 		for (int i = 0; i < v3fCircles.size(); i++) {
+			cout << "Testpetla1" << endl;
 			p.x = (int)v3fCircles[0][0];
 			p.y = (int)v3fCircles[0][1];
-
+			cout << "Testpetla2" << endl;
 			poziomXpoczatek.x = (int)(v3fCircles[0][0] - 10);
 			poziomXpoczatek.y = (int)v3fCircles[0][1];
 			poziomXkoniec.x = (int)(v3fCircles[0][0] + 10);
 			poziomXkoniec.y = (int)v3fCircles[0][1];
-
+			cout << "Testpetla3" << endl;
 			poziomYpoczatek.x = (int)v3fCircles[0][0];
 			poziomYpoczatek.y = (int)(v3fCircles[0][1] - 10);
 			poziomYkoniec.x = (int)v3fCircles[0][0];
 			poziomYkoniec.y = (int)(v3fCircles[0][1] + 10);
-
+			cout << "Testpetla4" << endl;
 			line(imgOriginal, poziomXpoczatek, poziomXkoniec, Scalar(0, 0, 255), 2, 8, 0);
 			line(imgOriginal, poziomYpoczatek, poziomYkoniec, Scalar(0, 0, 255), 2, 8, 0);
-			imshow(wndname, imgOriginal);
-			imshow("FlashView", binaryImg);
+			
 			waitKey(30);
+			cout << "Testpetla5" << endl;
 	}
+		waitKey(30);
+		imshow("ABCORIGINAL", imgOriginal);
+		imshow("FlashView", binaryImg);
 	return p;
 }
 
@@ -266,7 +273,7 @@ static void playSound(const vector<vector<Point> >& squares, Point testowyPunkci
 
 }
 
-Mat drawSquares(const vector<vector<Point> >& squares, Mat image_) {
+void drawSquares(const vector<vector<Point> >& squares, Mat image_) {
 	const Point* p = &squares[1][0];
 	int n = (int)squares[1].size();
 	if (p->x > 3 && p->y > 3)
@@ -276,7 +283,7 @@ Mat drawSquares(const vector<vector<Point> >& squares, Mat image_) {
 	//Rect rectangle = Rect(squares[1][0].x, squares[1][0].y, szerokosc, wysokosc);
 	//Mat croppedImage = image_(rectangle);
 	imshow(wndname, image_);
-	return image_;
+	//return image_;
 }
 
 
@@ -288,10 +295,7 @@ int main(int argc, char** argv) {
 	Mat image;
 	Point p;
 	Mat imgOriginal;
-	VideoCapture vCapture;
-	vCapture.open(0);
-	vCapture.set(CV_CAP_PROP_FRAME_WIDTH, WINDOW_WIDTH);
-	vCapture.set(CV_CAP_PROP_FRAME_HEIGHT, WINDOW_HEIGHT);
+
 
 
 	cout << "Wciœnij ENTER, aby skalibrowaæ aplikacje..." << endl;
@@ -300,20 +304,27 @@ int main(int argc, char** argv) {
 		frameFinder();
 		
 	image = imread("testImages/PrototypeImages/1.jpg", 1);
-	if (imgOriginal.empty()) {
+	if (image.empty()) {
 		cout << "error: image not read from file\n\n";
 		system("PAUSE");
 	}
 	try {
+
 		findSquares(image, squares);
+
 		drawSquares(squares, image);
 	}
 	catch (Exception e)	{
 		cout << e.code<< endl;
 	}
-	
 	waitKey(30);
-	
+
+	VideoCapture vCapture;
+	vCapture.open(0);
+	vCapture.set(CV_CAP_PROP_FRAME_WIDTH, WINDOW_WIDTH);
+	vCapture.set(CV_CAP_PROP_FRAME_HEIGHT, WINDOW_HEIGHT);
+	waitKey(30);
+
 	while (1) {
 		vCapture.read(imgOriginal);
 		p = flashFinder(imgOriginal);
