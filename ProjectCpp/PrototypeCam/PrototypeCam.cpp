@@ -92,40 +92,31 @@ Point flashFinder(Mat imgOriginal) {
 	Point poziomYkoniec;
 	String label;
 	Point p;
-	cout << "Test1" << endl;
 	bool trackObjects = false;
 	bool useMorphOps = true;
 	bool ifFind = false;
-	cout << "Test2" << endl;
-	cvtColor(imgOriginal, hsvImg, COLOR_BGR2HSV);
-	inRange(hsvImg, Scalar(231, 254, 105), Scalar(255, 255, 238), binaryImg);
-	cout << "Test3" << endl;
+	//cvtColor(imgOriginal, hsvImg, COLOR_BGR2HSV);
+	inRange(imgOriginal, Scalar(117, 251, 0), Scalar(255, 255, 157), binaryImg);
 	if (useMorphOps)
 		morphOps(binaryImg);
-	cout << "Test4" << endl;
 	HoughCircles(binaryImg, v3fCircles, CV_HOUGH_GRADIENT, 2, binaryImg.rows / 4, 40, 20, 5, 400);
-	cout << "Test5" << endl;
 	
 		for (int i = 0; i < v3fCircles.size(); i++) {
-			cout << "Testpetla1" << endl;
+
 			p.x = (int)v3fCircles[0][0];
 			p.y = (int)v3fCircles[0][1];
-			cout << "Testpetla2" << endl;
 			poziomXpoczatek.x = (int)(v3fCircles[0][0] - 10);
 			poziomXpoczatek.y = (int)v3fCircles[0][1];
 			poziomXkoniec.x = (int)(v3fCircles[0][0] + 10);
 			poziomXkoniec.y = (int)v3fCircles[0][1];
-			cout << "Testpetla3" << endl;
 			poziomYpoczatek.x = (int)v3fCircles[0][0];
 			poziomYpoczatek.y = (int)(v3fCircles[0][1] - 10);
 			poziomYkoniec.x = (int)v3fCircles[0][0];
 			poziomYkoniec.y = (int)(v3fCircles[0][1] + 10);
-			cout << "Testpetla4" << endl;
 			line(imgOriginal, poziomXpoczatek, poziomXkoniec, Scalar(0, 0, 255), 2, 8, 0);
 			line(imgOriginal, poziomYpoczatek, poziomYkoniec, Scalar(0, 0, 255), 2, 8, 0);
 			
 			waitKey(30);
-			cout << "Testpetla5" << endl;
 	}
 		waitKey(30);
 		imshow("ABCORIGINAL", imgOriginal);
@@ -195,82 +186,197 @@ static void findSquares(const Mat& image, vector<vector<Point> >& squares) {
 //Dodac rozciaganie ramki z 4 punktow nie z dwoch ;)
 //Zapisanie sciezek audio w tablicy
 
+Point poprzedniPunkt(0,0);
+
+static int sprawdzamPoprzedni(const vector<vector<Point> >& squares, int szynaczy, int wynary) {
+	int zwracana;
+	if (poprzedniPunkt.x < squares[1][0].x && poprzedniPunkt.x > squares[1][0].x - szynaczy) {
+		if (poprzedniPunkt.y > squares[1][0].y && poprzedniPunkt.y < squares[1][0].y + wynary) {
+			//cout << "TRZECI KWADRAT" << endl;
+			zwracana = 3;
+			return zwracana;
+		}
+		else if (poprzedniPunkt.y > squares[1][0].y + wynary && poprzedniPunkt.y < squares[1][0].y + (2 * wynary)) {
+			//cout << "SZOSTY KWADRAT" << endl;
+			zwracana = 6;
+			return zwracana;
+		}
+		else if (poprzedniPunkt.y > squares[1][0].y + 2 * wynary && poprzedniPunkt.y < squares[1][0].y + (3 * wynary)) {
+			//cout << "DZIEWIATY KWADRAT" << endl;
+			zwracana = 9;
+			return zwracana;
+		}
+		else if (poprzedniPunkt.y > squares[1][0].y + 3 * wynary && poprzedniPunkt.y < squares[1][0].y + (4 * wynary)) {
+			//cout << "DWUNASTY KWADRAT" << endl;
+			zwracana = 12;
+			return zwracana;
+		}
+
+	}
+	else if (poprzedniPunkt.x < squares[1][0].x + szynaczy && poprzedniPunkt.x > squares[1][0].x - (2 * szynaczy)) {
+		if (poprzedniPunkt.y > squares[1][0].y && poprzedniPunkt.y < squares[1][0].y + wynary) {
+			//cout << "DRUGI KWADRAT" << endl;
+			zwracana = 2;
+			return zwracana;
+		}
+		else if (poprzedniPunkt.y > squares[1][0].y + wynary && poprzedniPunkt.y < squares[1][0].y + (2 * wynary)) {
+			//cout << "PIATY KWADRAT" << endl;
+			zwracana = 5;
+			return zwracana;
+		}
+		else if (poprzedniPunkt.y > squares[1][0].y + 2 * wynary && poprzedniPunkt.y < squares[1][0].y + (3 * wynary)) {
+			//cout << "OSMY KWADRAT" << endl;
+			zwracana = 8;
+			return zwracana;
+		}
+		else if (poprzedniPunkt.y > squares[1][0].y + 3 * wynary && poprzedniPunkt.y < squares[1][0].y + (4 * wynary)) {
+			//cout << "JEDENASTY KWADRAT" << endl;
+			zwracana = 11;
+			return zwracana;
+		}
+	}
+	else if (poprzedniPunkt.x < squares[1][0].x + (2 * szynaczy) && poprzedniPunkt.x > squares[1][0].x - (3 * szynaczy)) {
+		if (poprzedniPunkt.y > squares[1][0].y && poprzedniPunkt.y < squares[1][0].y + wynary) {
+			//cout << "PIERWSZY KWADRAT" << endl;
+			zwracana = 1;
+			return zwracana;
+		}
+		else if (poprzedniPunkt.y > squares[1][0].y + wynary && poprzedniPunkt.y < squares[1][0].y + (2 * wynary)) {
+			//cout << "CZWARTY KWADRAT" << endl;
+			zwracana = 4;
+			return zwracana;
+		}
+		else if (poprzedniPunkt.y > squares[1][0].y + 2 * wynary && poprzedniPunkt.y < squares[1][0].y + (3 * wynary)) {
+			//cout << "SIODMY KWADRAT" << endl;
+			zwracana = 7;
+			return zwracana;
+		}
+		else if (poprzedniPunkt.y > squares[1][0].y + 3 * wynary && poprzedniPunkt.y < squares[1][0].y + (4 * wynary)) {
+			//cout << "DZIESIATY KWADRAT" << endl;
+			zwracana = 10;
+			return zwracana;
+		}
+	}
+	else {
+		return -1;
+	}
+
+}
+
 static void playSound(const vector<vector<Point> >& squares, Point testowyPunkcik) {
 	
 	int szynaczy = FRAME_WIDTH / 3;
 	int wynary = FRAME_HEIGHT / 4;
+	
 
-	if (testowyPunkcik.x > squares[1][0].x && testowyPunkcik.x < squares[1][0].x + szynaczy) {
-		if (testowyPunkcik.y > squares[1][0].y && testowyPunkcik.y < squares[1][0].y + wynary) {
-			cout << "TRZECI KWADRAT" << endl;
+
+	if (testowyPunkcik.x < squares[1][0].x && testowyPunkcik.x > squares[1][0].x - szynaczy) {
+		if (testowyPunkcik.y > squares[1][0].y && testowyPunkcik.y < squares[1][0].y + wynary) {		
+			if (3 == sprawdzamPoprzedni(squares, szynaczy, wynary)) {
+			}
+			else {
+				cout << "TRZECI KWADRAT" << endl;
 				PlaySound(TEXT("testSounds/3.wav"), NULL, SND_ASYNC);
-				waitKey(1000);
+			}
 		}
 		else if (testowyPunkcik.y > squares[1][0].y + wynary && testowyPunkcik.y < squares[1][0].y + (2 * wynary)) {
-			cout << "SZOSTY KWADRAT" << endl;
+			if (6 == sprawdzamPoprzedni(squares, szynaczy, wynary)) {
+			}
+			else {
+				cout << "SZOSTY KWADRAT" << endl;
 				PlaySound(TEXT("testSounds/6.wav"), NULL, SND_ASYNC);
-				waitKey(1000);
+			}
 		}
 		else if (testowyPunkcik.y > squares[1][0].y + 2 * wynary && testowyPunkcik.y < squares[1][0].y + (3 * wynary)) {
-			cout << "DZIEWIATY KWADRAT" << endl;
+			if (9 == sprawdzamPoprzedni(squares, szynaczy, wynary)) {
+			}
+			else {
+				cout << "DZIEWIATY KWADRAT" << endl;
 				PlaySound(TEXT("testSounds/9.wav"), NULL, SND_ASYNC);
-				waitKey(1000);
+			}
 		}
 		else if (testowyPunkcik.y > squares[1][0].y + 3 * wynary && testowyPunkcik.y < squares[1][0].y + (4 * wynary)) {
-			cout << "DWUNASTY KWADRAT" << endl;
+			if (12 == sprawdzamPoprzedni(squares, szynaczy, wynary)) {
+			}
+			else {
+				cout << "DWUNASTY KWADRAT" << endl;
 				PlaySound(TEXT("testSounds/12.wav"), NULL, SND_ASYNC);
-				waitKey(1000);
+			}
 		}
-
 	}
-	else if (testowyPunkcik.x > squares[1][0].x + szynaczy && testowyPunkcik.x < squares[1][0].x + (2 * szynaczy)) {
+	else if (testowyPunkcik.x < squares[1][0].x + szynaczy && testowyPunkcik.x > squares[1][0].x - (2 * szynaczy)) {
 		if (testowyPunkcik.y > squares[1][0].y && testowyPunkcik.y < squares[1][0].y + wynary) {
-			cout << "DRUGI KWADRAT" << endl;
+			if (2 == sprawdzamPoprzedni(squares, szynaczy, wynary)) {
+			}
+			else {
+				cout << "DRUGI KWADRAT" << endl;
 				PlaySound(TEXT("testSounds/2.wav"), NULL, SND_ASYNC);
-				waitKey(1000);
+			}
 		}
 		else if (testowyPunkcik.y > squares[1][0].y + wynary && testowyPunkcik.y < squares[1][0].y + (2 * wynary)) {
-			cout << "PIATY KWADRAT" << endl;
+			if (5 == sprawdzamPoprzedni(squares, szynaczy, wynary)) {
+			}
+			else {
+				cout << "PIATY KWADRAT" << endl;
 				PlaySound(TEXT("testSounds/5.wav"), NULL, SND_ASYNC);
-				waitKey(1000);
+			}
 		}
 		else if (testowyPunkcik.y > squares[1][0].y + 2 * wynary && testowyPunkcik.y < squares[1][0].y + (3 * wynary)) {
-			cout << "OSMY KWADRAT" << endl;
+			if (8 == sprawdzamPoprzedni(squares, szynaczy, wynary)) {
+			}
+			else {
+				cout << "OSMY KWADRAT" << endl;
 				PlaySound(TEXT("testSounds/8.wav"), NULL, SND_ASYNC);
-				waitKey(1000);
+			}
 		}
 		else if (testowyPunkcik.y > squares[1][0].y + 3 * wynary && testowyPunkcik.y < squares[1][0].y + (4 * wynary)) {
-			cout << "JEDENASTY KWADRAT" << endl;
+			if (11 == sprawdzamPoprzedni(squares, szynaczy, wynary)) {
+			}
+			else {
+				cout << "JEDENASTY KWADRAT" << endl;
 				PlaySound(TEXT("testSounds/11.wav"), NULL, SND_ASYNC);
-				waitKey(1000);
+			}
 		}
 	}
-	else if (testowyPunkcik.x > squares[1][0].x + (2 * szynaczy) && testowyPunkcik.x < squares[1][0].x + (3 * szynaczy)) {
+	else if (testowyPunkcik.x < squares[1][0].x + (2 * szynaczy) && testowyPunkcik.x > squares[1][0].x - (3 * szynaczy)) {
 		if (testowyPunkcik.y > squares[1][0].y && testowyPunkcik.y < squares[1][0].y + wynary) {
-			cout << "PIERWSZY KWADRAT" << endl;
+			if (1 == sprawdzamPoprzedni(squares, szynaczy, wynary)) {
+			}
+			else {
+				cout << "PIERWSZY KWADRAT" << endl;
 				PlaySound(TEXT("testSounds/1.wav"), NULL, SND_ASYNC);
-				waitKey(1000);
+			}
 		}
 		else if (testowyPunkcik.y > squares[1][0].y + wynary && testowyPunkcik.y < squares[1][0].y + (2 * wynary)) {
-			cout << "CZWARTY KWADRAT" << endl;
+			if (4 == sprawdzamPoprzedni(squares, szynaczy, wynary)) {
+			}
+			else {
+				cout << "CZWARTY KWADRAT" << endl;
 				PlaySound(TEXT("testSounds/4.wav"), NULL, SND_ASYNC);
-				waitKey(1000);
+			}
 		}
 		else if (testowyPunkcik.y > squares[1][0].y + 2 * wynary && testowyPunkcik.y < squares[1][0].y + (3 * wynary)) {
-			cout << "SIODMY KWADRAT" << endl;
+			if (7 == sprawdzamPoprzedni(squares, szynaczy, wynary)) {
+			}
+			else {
+				cout << "SIODMY KWADRAT" << endl;
 				PlaySound(TEXT("testSounds/7.wav"), NULL, SND_ASYNC);
-				waitKey(1000);
+			}
 		}
 		else if (testowyPunkcik.y > squares[1][0].y + 3 * wynary && testowyPunkcik.y < squares[1][0].y + (4 * wynary)) {
-			cout << "DZIESIATY KWADRAT" << endl;
+			if (10 == sprawdzamPoprzedni(squares, szynaczy, wynary)) {
+			}
+			else {
+				cout << "DZIESIATY KWADRAT" << endl;
 				PlaySound(TEXT("testSounds/10.wav"), NULL, SND_ASYNC);
-				waitKey(1000);
+			}
 		}
 	}
 	else {
 	}
 
-
+	poprzedniPunkt.x = testowyPunkcik.x;
+	poprzedniPunkt.y = testowyPunkcik.y;
 }
 
 void drawSquares(const vector<vector<Point> >& squares, Mat image_) {
@@ -311,7 +417,6 @@ int main(int argc, char** argv) {
 	try {
 
 		findSquares(image, squares);
-
 		drawSquares(squares, image);
 	}
 	catch (Exception e)	{
