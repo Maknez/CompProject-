@@ -101,6 +101,18 @@ Point flashFinder(Mat imgOriginal) {
 		morphOps(binaryImg);
 	HoughCircles(binaryImg, v3fCircles, CV_HOUGH_GRADIENT, 2, binaryImg.rows / 4, 40, 20, 5, 400);
 	
+	/*dodany if else*******************************jesli nie dziala to wyjebac************************************************************/
+	
+	if (v3fCircles.size() == 0) {
+		p.x = -1;
+		p.y = -1;
+		waitKey(30);
+		imshow("ABCORIGINAL", imgOriginal);
+		imshow("FlashView", binaryImg);
+
+		return p;
+	}
+	else {
 		for (int i = 0; i < v3fCircles.size(); i++) {
 
 			p.x = (int)v3fCircles[0][0];
@@ -115,13 +127,15 @@ Point flashFinder(Mat imgOriginal) {
 			poziomYkoniec.y = (int)(v3fCircles[0][1] + 10);
 			line(imgOriginal, poziomXpoczatek, poziomXkoniec, Scalar(0, 0, 255), 2, 8, 0);
 			line(imgOriginal, poziomYpoczatek, poziomYkoniec, Scalar(0, 0, 255), 2, 8, 0);
-			
+
 			waitKey(30);
-	}
+		}
 		waitKey(30);
 		imshow("ABCORIGINAL", imgOriginal);
 		imshow("FlashView", binaryImg);
-	return p;
+		return p;
+	}
+		
 }
 
 static double angle(Point pt1, Point pt2, Point pt0) {
@@ -263,12 +277,12 @@ static int sprawdzamPoprzedni(const vector<vector<Point> >& squares, int szynacz
 
 }
 
+
+
 static void playSound(const vector<vector<Point> >& squares, Point testowyPunkcik) {
 	
 	int szynaczy = FRAME_WIDTH / 3;
 	int wynary = FRAME_HEIGHT / 4;
-	
-
 
 	if (testowyPunkcik.x < squares[1][0].x && testowyPunkcik.x > squares[1][0].x - szynaczy) {
 		if (testowyPunkcik.y > squares[1][0].y && testowyPunkcik.y < squares[1][0].y + wynary) {		
