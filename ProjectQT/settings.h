@@ -14,6 +14,9 @@ class Settings : public QDialog
 
 public:
     explicit Settings(QWidget *parent = 0);
+    bool validation(int);
+    QString random(int iterator);
+    QString toString(int);
     ~Settings();
 
 private slots:

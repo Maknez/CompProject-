@@ -26,12 +26,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    settings.cpp
+    settings.cpp \
+    dialog.cpp
 
 HEADERS += \
         mainwindow.h \
-    settings.h
+    settings.h \
+    dialog.h
 
 FORMS += \
         mainwindow.ui \
-    settings.ui
+    settings.ui \
+    dialog.ui
+
+DISTFILES += \
+    ../OtherFiles/memoryGameIcons/1.gif \
+    ../OtherFiles/memoryGameIcons/2.gif \
+    ../OtherFiles/memoryGameIcons/3.gif \
+    ../OtherFiles/memoryGameIcons/4.gif \
+    ../OtherFiles/memoryGameIcons/5.gif \
+    ../OtherFiles/memoryGameIcons/6.gif

@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QPushButton>
 
 namespace Ui {
 class MainWindow;
@@ -26,34 +27,37 @@ public:
     void setButton10(QString);
     void setButton11(QString);
     void setButton12(QString);
-    static QString button1;
-    static QString button2;
-    static QString button3;
-    static QString button4;
-    static QString button5;
-    static QString button6;
-    static QString button7;
-    static QString button8;
-    static QString button9;
-    static QString button10;
-    static QString button11;
-    static QString button12;
+    static QString image;
+    static QString image2;
+    static QString image3;
+    static QString image4;
+    static QString image5;
+    static QString image6;
+    static QString image7;
+    static QString image8;
+    static QString image9;
+    static QString image10;
+    static QString image11;
+    static QString image12;
+    static QPushButton *prev;
+    static QString prevImage;
 
 private slots:
-    void playSound(QString);
-    void on_toolButton_clicked();
-    void on_toolButton_2_clicked();
-    void on_toolButton_3_clicked();
-    void on_toolButton_4_clicked();
-    void on_toolButton_5_clicked();
-    void on_toolButton_6_clicked();
-    void on_toolButton_7_clicked();
-    void on_toolButton_8_clicked();
-    void on_toolButton_9_clicked();
-    void on_toolButton_10_clicked();
-    void on_toolButton_11_clicked();
-    void on_toolButton_12_clicked();
+    void uncoverTheCard(QPushButton *, QString);
     void on_pushButton_clicked();
+    void on_pushButton_2_clicked();
+    void on_pushButton_3_clicked();
+    void on_pushButton_4_clicked();
+    void on_pushButton_5_clicked();
+    void on_pushButton_6_clicked();
+    void on_pushButton_7_clicked();
+    void on_pushButton_8_clicked();
+    void on_pushButton_9_clicked();
+    void on_pushButton_10_clicked();
+    void on_pushButton_11_clicked();
+    void on_pushButton_12_clicked();
+    void on_pushButton_13_clicked();
+
 
 private:
     Ui::MainWindow *ui;

@@ -2,148 +2,191 @@
 #include "ui_mainwindow.h"
 #include <stdlib.h>
 #include "settings.h"
+#include "dialog.h"
+#include <QPushButton>
+#include <unistd.h>
 // #include <windows.h>
 // #pragma comment(lib, "Winmm.lib")
+
+// ŚCIEŻKA DO IKON ZMIENIĆ JEŚLI NA WINDZIE
+QString pathToIcons = "/Users/michalparysz/Desktop/projectCpp/OtherFiles/memoryGameIcons/";
+
+int countOfCards = 0;
+int points = 0;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    button1 = "1.wav";
-    button2 = "2.wav";
-    button3 = "3.wav";
-    button4 = "4.wav";
-    button5 = "5.wav";
-    button6 = "6.wav";
-    button7 = "7.wav";
-    button8 = "8.wav";
-    button9 = "9.wav";
-    button10 = "10.wav";
-    button11 = "11.wav";
-    button12 = "12.wav";
+    image = "1.gif";
+    image2 = "2.gif";
+    image3 = "3.gif";
+    image4 = "4.gif";
+    image5 = "5.gif";
+    image6 = "6.gif";
+    image7 = "1.gif";
+    image8 = "2.gif";
+    image9 = "3.gif";
+    image10 = "4.gif";
+    image11 = "5.gif";
+    image12 = "6.gif";
 }
-QString MainWindow::button1;
-QString MainWindow::button2;
-QString MainWindow::button3;
-QString MainWindow::button4;
-QString MainWindow::button5;
-QString MainWindow::button6;
-QString MainWindow::button7;
-QString MainWindow::button8;
-QString MainWindow::button9;
-QString MainWindow::button10;
-QString MainWindow::button11;
-QString MainWindow::button12;
+QString MainWindow::image;
+QString MainWindow::image2;
+QString MainWindow::image3;
+QString MainWindow::image4;
+QString MainWindow::image5;
+QString MainWindow::image6;
+QString MainWindow::image7;
+QString MainWindow::image8;
+QString MainWindow::image9;
+QString MainWindow::image10;
+QString MainWindow::image11;
+QString MainWindow::image12;
+
+QPushButton *MainWindow::prev;
+QString MainWindow::prevImage;
+
+
+//PlaySound(TEXT("C:/opencv/..pathtotrack.."), NULL, SND_ASYNC); to do
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
-void MainWindow::playSound(QString path) {
-
-    // MAC OS X -> /Users/michalparysz/Desktop/build-flashfinder-Desktop_Qt_5_9_2_clang_64bit-Debug/flashfinder.app/Contents/MacOS
-    //path.prepend("java Sound ");
-
-    //const char * command = path.toLocal8Bit().data();
-
-    // WINDOWS -> C:/opencv/ProjectAppsBinaries/testSounds/3.wav
-    //PlaySound(TEXT("C:/opencv/ProjectAppsBinaries/testSounds/" + command), NULL, SND_ASYNC);
-
-    //system(command);
+void MainWindow::uncoverTheCard(QPushButton *button, QString image) {
+    if(image != " ") {
+        if(countOfCards < 2) {
+            button->setStyleSheet("background-image:url(" + pathToIcons + image + ")");
+            countOfCards++;
+            if(countOfCards == 1) {
+                prevImage = image;
+                prev = button;
+            }
+            if(countOfCards == 2) {
+                if(image != prevImage) {
+                    prev->setStyleSheet("background-image:url('')");
+                    button->setStyleSheet("background-image:url('')");
+                } else {
+                    points++;
+                    if(points == 6) {
+                        Dialog page;
+                        page.setModal(true);
+                        page.exec();
+                    }
+                }
+                countOfCards = 0;
+            }
+        }
+    } else {
+        button->setStyleSheet("background-image:url('')");
+    }
 }
+
 void MainWindow::setButton1(QString path) {
-    this->button1 = path;
+    this->image = path;
 }
 void MainWindow::setButton2(QString path) {
-    this->button2 = path;
+    this->image2 = path;
 }
 void MainWindow::setButton3(QString path) {
-    this->button3 = path;
+    this->image3 = path;
 }
 void MainWindow::setButton4(QString path) {
-    this->button4 = path;
+    this->image4 = path;
 }
 void MainWindow::setButton5(QString path) {
-    this->button5 = path;
+    this->image5 = path;
 }
 void MainWindow::setButton6(QString path) {
-    this->button6 = path;
+    this->image6 = path;
 }
 void MainWindow::setButton7(QString path) {
-    this->button7 = path;
+    this->image7 = path;
 }
 void MainWindow::setButton8(QString path) {
-    this->button8 = path;
+    this->image8 = path;
 }
 void MainWindow::setButton9(QString path) {
-    this->button9 = path;
+    this->image9 = path;
 }
 void MainWindow::setButton10(QString path) {
-    this->button10 = path;
+    this->image10 = path;
 }
 void MainWindow::setButton11(QString path) {
-    this->button11 = path;
+    this->image11 = path;
 }
 void MainWindow::setButton12(QString path) {
-    this->button12 = path;
-}
-void MainWindow::on_toolButton_clicked()
-{
-    //system("pwd");
-    playSound(button1);
-}
-
-void MainWindow::on_toolButton_2_clicked()
-{
-    playSound(button2);
-}
-
-void MainWindow::on_toolButton_3_clicked()
-{
-    playSound(button3);
-}
-void MainWindow::on_toolButton_4_clicked()
-{
-    playSound(button4);
-}
-void MainWindow::on_toolButton_5_clicked()
-{
-    playSound(button5);
-}
-void MainWindow::on_toolButton_6_clicked()
-{
-    playSound(button6);
-}
-void MainWindow::on_toolButton_7_clicked()
-{
-    playSound(button7);
-}
-void MainWindow::on_toolButton_8_clicked()
-{
-    playSound(button8);
-}
-void MainWindow::on_toolButton_9_clicked()
-{
-    playSound(button9);
-}
-void MainWindow::on_toolButton_10_clicked()
-{
-    playSound(button10);
-}
-void MainWindow::on_toolButton_11_clicked()
-{
-    playSound(button11);
-}
-void MainWindow::on_toolButton_12_clicked()
-{
-    playSound(button12);
+    this->image12 = path;
 }
 
 void MainWindow::on_pushButton_clicked()
 {
+    uncoverTheCard(ui->pushButton, image);
+}
+void MainWindow::on_pushButton_2_clicked()
+{
+    uncoverTheCard(ui->pushButton_2, image2);
+}
+void MainWindow::on_pushButton_3_clicked()
+{
+    uncoverTheCard(ui->pushButton_3, image3);
+}
+void MainWindow::on_pushButton_4_clicked()
+{
+    uncoverTheCard(ui->pushButton_4, image4);
+}
+void MainWindow::on_pushButton_5_clicked()
+{
+    uncoverTheCard(ui->pushButton_5, image5);
+}
+void MainWindow::on_pushButton_6_clicked()
+{
+    uncoverTheCard(ui->pushButton_6, image6);
+}
+void MainWindow::on_pushButton_7_clicked()
+{
+    uncoverTheCard(ui->pushButton_7, image7);
+}
+void MainWindow::on_pushButton_8_clicked()
+{
+    uncoverTheCard(ui->pushButton_8, image8);
+}
+void MainWindow::on_pushButton_9_clicked()
+{
+    uncoverTheCard(ui->pushButton_9, image9);
+}
+void MainWindow::on_pushButton_10_clicked()
+{
+    uncoverTheCard(ui->pushButton_10, image10);
+}
+void MainWindow::on_pushButton_11_clicked()
+{
+    uncoverTheCard(ui->pushButton_11, image11);
+}
+void MainWindow::on_pushButton_12_clicked()
+{
+    uncoverTheCard(ui->pushButton_12, image12);
+}
+void MainWindow::on_pushButton_13_clicked()
+{
+    uncoverTheCard(ui->pushButton, " ");
+    uncoverTheCard(ui->pushButton_2, " ");
+    uncoverTheCard(ui->pushButton_3, " ");
+    uncoverTheCard(ui->pushButton_4, " ");
+    uncoverTheCard(ui->pushButton_5, " ");
+    uncoverTheCard(ui->pushButton_6, " ");
+    uncoverTheCard(ui->pushButton_7, " ");
+    uncoverTheCard(ui->pushButton_8, " ");
+    uncoverTheCard(ui->pushButton_9, " ");
+    uncoverTheCard(ui->pushButton_10, " ");
+    uncoverTheCard(ui->pushButton_11, " ");
+    uncoverTheCard(ui->pushButton_12, " ");
+
+    countOfCards = 0;
+
     Settings page;
     page.setModal(true);
     page.exec();
 }
-
