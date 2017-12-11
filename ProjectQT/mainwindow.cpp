@@ -66,11 +66,24 @@ void MainWindow::uncoverTheCard(QPushButton *button, QString image) {
             }
             if(countOfCards == 2) {
                 if(image != prevImage) {
+                    for(long i = 0; i < 200000000; i++);//czemu
                     prev->setStyleSheet("background-image:url('')");
                     button->setStyleSheet("background-image:url('')");
-                } else {
+                } else if (button != prev){
                     points++;
                     if(points == 6) {
+                        uncoverTheCard(ui->pushButton, " ");
+                        uncoverTheCard(ui->pushButton_2, " ");
+                        uncoverTheCard(ui->pushButton_3, " ");
+                        uncoverTheCard(ui->pushButton_4, " ");
+                        uncoverTheCard(ui->pushButton_5, " ");
+                        uncoverTheCard(ui->pushButton_6, " ");
+                        uncoverTheCard(ui->pushButton_7, " ");
+                        uncoverTheCard(ui->pushButton_8, " ");
+                        uncoverTheCard(ui->pushButton_9, " ");
+                        uncoverTheCard(ui->pushButton_10, " ");
+                        uncoverTheCard(ui->pushButton_11, " ");
+                        uncoverTheCard(ui->pushButton_12, " ");
                         Dialog page;
                         page.setModal(true);
                         page.exec();

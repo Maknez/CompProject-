@@ -45,6 +45,9 @@ QString Settings::toString(int number) {
 
 void Settings::on_pushButton_clicked()
 {
+    for(int i = 0; i<12;i++) {
+        tab[i] = NULL;
+    }
     MainWindow w;
     w.setButton1(random(0));
     w.setButton2(random(1));
