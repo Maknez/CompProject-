@@ -15,6 +15,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void clearCards();
     void setButton1(QString);
     void setButton2(QString);
     void setButton3(QString);
@@ -44,7 +45,7 @@ public:
 
 private slots:
     void uncoverTheCard(QPushButton *, QString);
-    void on_pushButton_clicked();
+    /*void on_pushButton_clicked();
     void on_pushButton_2_clicked();
     void on_pushButton_3_clicked();
     void on_pushButton_4_clicked();
@@ -55,9 +56,21 @@ private slots:
     void on_pushButton_9_clicked();
     void on_pushButton_10_clicked();
     void on_pushButton_11_clicked();
-    void on_pushButton_12_clicked();
+    void on_pushButton_12_clicked();*/
     void on_pushButton_13_clicked();
-
+    void push_1();
+    void push_2();
+    void push_3();
+    void push_4();
+    void push_5();
+    void push_6();
+    void push_7();
+    void push_8();
+    void push_9();
+    void push_10();
+    void push_11();
+    void push_12();
+    //void on_pushButton_14_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -66,24 +66,14 @@ void MainWindow::uncoverTheCard(QPushButton *button, QString image) {
             }
             if(countOfCards == 2) {
                 if(image != prevImage) {
-                    for(long i = 0; i < 200000000; i++);//czemu
+                    // for(long i = 0; i < 200000000; i++);
+                    // usleep(1000000);
                     prev->setStyleSheet("background-image:url('')");
                     button->setStyleSheet("background-image:url('')");
                 } else if (button != prev){
                     points++;
                     if(points == 6) {
-                        uncoverTheCard(ui->pushButton, " ");
-                        uncoverTheCard(ui->pushButton_2, " ");
-                        uncoverTheCard(ui->pushButton_3, " ");
-                        uncoverTheCard(ui->pushButton_4, " ");
-                        uncoverTheCard(ui->pushButton_5, " ");
-                        uncoverTheCard(ui->pushButton_6, " ");
-                        uncoverTheCard(ui->pushButton_7, " ");
-                        uncoverTheCard(ui->pushButton_8, " ");
-                        uncoverTheCard(ui->pushButton_9, " ");
-                        uncoverTheCard(ui->pushButton_10, " ");
-                        uncoverTheCard(ui->pushButton_11, " ");
-                        uncoverTheCard(ui->pushButton_12, " ");
+                        clearCards();
                         Dialog page;
                         page.setModal(true);
                         page.exec();
@@ -95,6 +85,21 @@ void MainWindow::uncoverTheCard(QPushButton *button, QString image) {
     } else {
         button->setStyleSheet("background-image:url('')");
     }
+}
+
+void MainWindow::clearCards() {
+    uncoverTheCard(ui->pushButton, " ");
+    uncoverTheCard(ui->pushButton_2, " ");
+    uncoverTheCard(ui->pushButton_3, " ");
+    uncoverTheCard(ui->pushButton_4, " ");
+    uncoverTheCard(ui->pushButton_5, " ");
+    uncoverTheCard(ui->pushButton_6, " ");
+    uncoverTheCard(ui->pushButton_7, " ");
+    uncoverTheCard(ui->pushButton_8, " ");
+    uncoverTheCard(ui->pushButton_9, " ");
+    uncoverTheCard(ui->pushButton_10, " ");
+    uncoverTheCard(ui->pushButton_11, " ");
+    uncoverTheCard(ui->pushButton_12, " ");
 }
 
 void MainWindow::setButton1(QString path) {
@@ -134,6 +139,47 @@ void MainWindow::setButton12(QString path) {
     this->image12 = path;
 }
 
+// funkcje do podlaczenia ktore trzeba wywolac w glownym projekcie po wykryciu blysku
+void MainWindow::push_1() {
+    uncoverTheCard(ui->pushButton, image);
+}
+void MainWindow::push_2() {
+    uncoverTheCard(ui->pushButton_2, image2);
+}
+void MainWindow::push_3() {
+    uncoverTheCard(ui->pushButton_3, image3);
+}
+void MainWindow::push_4() {
+    uncoverTheCard(ui->pushButton_4, image4);
+}
+void MainWindow::push_5() {
+    uncoverTheCard(ui->pushButton_5, image5);
+}
+void MainWindow::push_6() {
+    uncoverTheCard(ui->pushButton_6, image6);
+}
+void MainWindow::push_7() {
+    uncoverTheCard(ui->pushButton_7, image7);
+}
+void MainWindow::push_8() {
+    uncoverTheCard(ui->pushButton_8, image8);
+}
+void MainWindow::push_9() {
+    uncoverTheCard(ui->pushButton_9, image9);
+}
+void MainWindow::push_10() {
+    uncoverTheCard(ui->pushButton_10, image10);
+}
+void MainWindow::push_11() {
+    uncoverTheCard(ui->pushButton_11, image11);
+}
+void MainWindow::push_12() {
+    uncoverTheCard(ui->pushButton_12, image12);
+}
+//////////////////
+/// funkcje wywolywane po kliknieciu przycisku, do testow tylko
+///
+/*
 void MainWindow::on_pushButton_clicked()
 {
     uncoverTheCard(ui->pushButton, image);
@@ -181,25 +227,19 @@ void MainWindow::on_pushButton_11_clicked()
 void MainWindow::on_pushButton_12_clicked()
 {
     uncoverTheCard(ui->pushButton_12, image12);
-}
+}*/
+
+// Przycisk do nowego okna w ktorym mamy mozliwosc rozpoczecia gry od nowa
 void MainWindow::on_pushButton_13_clicked()
 {
-    uncoverTheCard(ui->pushButton, " ");
-    uncoverTheCard(ui->pushButton_2, " ");
-    uncoverTheCard(ui->pushButton_3, " ");
-    uncoverTheCard(ui->pushButton_4, " ");
-    uncoverTheCard(ui->pushButton_5, " ");
-    uncoverTheCard(ui->pushButton_6, " ");
-    uncoverTheCard(ui->pushButton_7, " ");
-    uncoverTheCard(ui->pushButton_8, " ");
-    uncoverTheCard(ui->pushButton_9, " ");
-    uncoverTheCard(ui->pushButton_10, " ");
-    uncoverTheCard(ui->pushButton_11, " ");
-    uncoverTheCard(ui->pushButton_12, " ");
-
+    clearCards();
     countOfCards = 0;
-
     Settings page;
     page.setModal(true);
     page.exec();
 }
+// przycisk do kalibracjo obrazu
+// void MainWindow::on_pushButton_14_clicked()
+//{
+ // trzeba sciagnac funkcje z glownego projektu ktora bedzie wywolywana po nacisnieciu przycisku
+//}
