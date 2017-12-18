@@ -2,9 +2,7 @@
 #define SETTINGS_H
 
 #include <QDialog>
-
-//Krzyczy ponizszy include nie mam pojecia dlaczego. po wykomentowaniu program odpala sie tak czy siak :d
-//#include <mainwindow.h>
+#include <mainwindow.h>
 
 namespace Ui {
 class Settings;
@@ -16,6 +14,9 @@ class Settings : public QDialog
 
 public:
     explicit Settings(QWidget *parent = 0);
+    bool validation(int);
+    QString random(int iterator);
+    QString toString(int);
     ~Settings();
 
 private slots:

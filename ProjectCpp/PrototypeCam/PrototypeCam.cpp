@@ -14,8 +14,8 @@
 using namespace cv;
 using namespace std;
 
-const int WINDOW_WIDTH = 896;
-const int WINDOW_HEIGHT = 504;
+const int WINDOW_WIDTH = 1280;
+const int WINDOW_HEIGHT = 720;
 int FRAME_WIDTH;
 int FRAME_HEIGHT;
 
@@ -80,7 +80,13 @@ String numberToString(int Number) {
 	return ss.str();
 }
 
-Point flashFinder(Mat imgOriginal) {
+Mat drawGrid(Mat imgOriginal, const vector<vector<Point> >& squares) {
+	line(imgOriginal, squares[4][2], squares[1][0], Scalar(0, 0, 255), 2, 8, 0);
+
+	return imgOriginal;
+}
+
+Point flashFinder(Mat imgOriginal, const vector<vector<Point> >& squares) {
 	Mat hsvImg;
 	Mat binaryImg;
 	Mat binaryImg1;
@@ -131,6 +137,7 @@ Point flashFinder(Mat imgOriginal) {
 			waitKey(30);
 		}
 		waitKey(30);
+		
 		imshow("ABCORIGINAL", imgOriginal);
 		imshow("FlashView", binaryImg);
 		return p;
@@ -407,6 +414,8 @@ void drawSquares(const vector<vector<Point> >& squares, Mat image_) {
 }
 
 
+
+
 int main(int argc, char** argv) {
 
 	unsigned char znak;
@@ -431,7 +440,7 @@ int main(int argc, char** argv) {
 		/**********************************************************************************************************************************/
 		/**********************************************************************************************************************************/
 
-		frameFinder();
+		//frameFinder();
 		
 	image = imread("testImages/PrototypeImages/1.jpg", 1);
 	if (image.empty()) {
@@ -455,9 +464,15 @@ int main(int argc, char** argv) {
 	waitKey(30);
 
 	while (1) {
+
 		vCapture.read(imgOriginal);
-		p = flashFinder(imgOriginal);
-		playSound(squares, p);
+		
+		resize(imgOriginal, imgOriginal, Size(WINDOW_WIDTH, WINDOW_HEIGHT));
+		imgOriginal = drawGrid(imgOriginal, squares);
+		waitKey(30);
+		imshow("ABCORIGINAL", imgOriginal);
+		//p = flashFinder(imgOriginal,squares);
+		//playSound(squares, p);
 	}
 
 	return 0;

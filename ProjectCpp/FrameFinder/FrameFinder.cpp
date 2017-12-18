@@ -6,8 +6,8 @@
 using namespace cv;
 using namespace std;
 
-const int FRAME_WIDTH = 576;
-const int FRAME_HEIGHT = 1024;
+const int FRAME_WIDTH = 1280;
+const int FRAME_HEIGHT = 720;
 
 
 int H_MIN = 0;
@@ -55,8 +55,8 @@ int main(int argc, char** argv)
 
 
 	cvtColor(imgOriginal, hsvImg, COLOR_BGR2HSV);
-	inRange(hsvImg, Scalar(168, 123, 0), Scalar(255, 256, 255), binaryImg1);
-	inRange(hsvImg, Scalar(35, 208, 121), Scalar(255, 255, 255), binaryImg2);
+	inRange(imgOriginal, Scalar(25, 142, 140), Scalar(51, 179, 246), binaryImg1);
+	inRange(imgOriginal, Scalar(30, 56, 170), Scalar(82, 128, 255), binaryImg2);
 	add(binaryImg1, binaryImg2, binaryImg);
 	resize(imgOriginal, imgOriginal, Size(FRAME_WIDTH, FRAME_HEIGHT));
 	resize(hsvImg, hsvImg, Size(FRAME_WIDTH, FRAME_HEIGHT));
