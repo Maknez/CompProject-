@@ -9,7 +9,7 @@
 // #pragma comment(lib, "Winmm.lib")
 
 // ŚCIEŻKA DO IKON ZMIENIĆ JEŚLI NA WINDZIE
-QString pathToIcons = "C:\opencv\ProjectAppsSources\OtherFiles\memoryGameIcons";
+QString pathToIcons = "C:/opencv/ProjectAppsSources/OtherFiles/memoryGameIcons/";
 
 int countOfCards = 0;
 int points = 0;

@@ -15,7 +15,7 @@ main.cpp
 mainwindow.cpp
 moc_mainwindow.cpp
 settings.cpp
-moc_settings.cpp
+moc_dialog.cpp
 )
 
 set(GUI_HEADERS
