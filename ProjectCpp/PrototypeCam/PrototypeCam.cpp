@@ -18,8 +18,12 @@ const int WINDOW_WIDTH = 1280;
 const int WINDOW_HEIGHT = 720;
 int FRAME_WIDTH;
 int FRAME_HEIGHT;
-
+int szynaczy;
+int wynary;
+vector<Point> organizedSquares;
+int wektorX[][4];
 int thresh = 50, N = 5;
+
 const char* wndname = "PrototypeAppView";
 
 int H_MIN = 0;
@@ -81,7 +85,25 @@ String numberToString(int Number) {
 }
 
 Mat drawGrid(Mat imgOriginal, const vector<vector<Point> >& squares) {
-	line(imgOriginal, squares[4][2], squares[1][0], Scalar(0, 0, 255), 2, 8, 0);
+
+	szynaczy = FRAME_WIDTH / 3;
+	wynary = FRAME_HEIGHT / 4;
+
+	const Point* p = &squares[1][0];
+	int n = (int)squares[1].size();
+	if (p->x > 3 && p->y > 3)
+		polylines(imgOriginal, &p, &n, 1, true, Scalar(0, 0, 255), 3, LINE_AA);
+	
+	Point p1;
+	p1.x = squares[4][2].x + szynaczy;
+	p1.y = squares[4][2].y;
+	Point p2;
+	p2.x = squares[4][2].x + szynaczy;
+	p2.y = squares[4][2].y + wynary;
+	line(imgOriginal, squares[1][0], squares[1][1], Scalar(0, 123, 255), 5, 8, 0);
+	line(imgOriginal, squares[1][1], squares[1][2], Scalar(123, 123, 255), 5, 8, 0);
+	line(imgOriginal, squares[1][2], squares[1][3], Scalar(0, 123, 0), 5, 8, 0);
+	line(imgOriginal, squares[1][3], squares[1][0], Scalar(255, 123, 255), 5, 8, 0);
 
 	return imgOriginal;
 }
@@ -154,48 +176,127 @@ static double angle(Point pt1, Point pt2, Point pt0) {
 	return (dx1*dx2 + dy1*dy2) / sqrt((dx1*dx1 + dy1*dy1)*(dx2*dx2 + dy2*dy2) + 1e-10);
 }
 
-static void findSquares(const Mat& image, vector<vector<Point> >& squares) {
+// returns sequence of squares detected on the image.
+// the sequence is stored in the specified memory storage
+static void findSquares(const Mat& image, vector<vector<Point> >& squares)
+{
 	squares.clear();
-	Mat timg(image);
-	medianBlur(image, timg, 9);
-	Mat gray0(timg.size(), CV_8U), gray;
+
+	Mat pyr, timg, gray0(image.size(), CV_8U), gray;
+
+	// down-scale and upscale the image to filter out the noise
+	pyrDown(image, pyr, Size(image.cols / 2, image.rows / 2));
+	pyrUp(pyr, timg, image.size());
 	vector<vector<Point> > contours;
 
-	for (int c = 0; c < 3; c++) {
+	// find squares in every color plane of the image
+	for (int c = 0; c < 3; c++)
+	{
 		int ch[] = { c, 0 };
 		mixChannels(&timg, 1, &gray0, 1, ch, 1);
 
-		for (int l = 0; l < N; l++) {
-			if (l == 0) {
-				Canny(gray0, gray, 5, thresh, 5);
+		// try several threshold levels
+		for (int l = 0; l < N; l++)
+		{
+			// hack: use Canny instead of zero threshold level.
+			// Canny helps to catch squares with gradient shading
+			if (l == 0)
+			{
+				// apply Canny. Take the upper threshold from slider
+				// and set the lower to 0 (which forces edges merging)
+				Canny(gray0, gray, 0, thresh, 5);
+				// dilate canny output to remove potential
+				// holes between edge segments
 				dilate(gray, gray, Mat(), Point(-1, -1));
 			}
-			else {
+			else
+			{
+				// apply threshold if l!=0:
+				//     tgray(x,y) = gray(x,y) < (l+1)*255/N ? 255 : 0
 				gray = gray0 >= (l + 1) * 255 / N;
 			}
 
+			// find contours and store them all as a list
 			findContours(gray, contours, RETR_LIST, CHAIN_APPROX_SIMPLE);
 
 			vector<Point> approx;
 
-			for (size_t i = 0; i < contours.size(); i++) {
+			// test each contour
+			for (size_t i = 0; i < contours.size(); i++)
+			{
+				// approximate contour with accuracy proportional
+				// to the contour perimeter
 				approxPolyDP(Mat(contours[i]), approx, arcLength(Mat(contours[i]), true)*0.02, true);
-				if (approx.size() == 4 && fabs(contourArea(Mat(approx))) > 1000 && isContourConvex(Mat(approx))) {
+
+				// square contours should have 4 vertices after approximation
+				// relatively large area (to filter out noisy contours)
+				// and be convex.
+				// Note: absolute value of an area is used because
+				// area may be positive or negative - in accordance with the
+				// contour orientation
+				if (approx.size() == 4 &&
+					fabs(contourArea(Mat(approx))) > 1000 &&
+					isContourConvex(Mat(approx)))
+				{
 					double maxCosine = 0;
 
-					for (int j = 2; j < 5; j++) {
+					for (int j = 2; j < 5; j++)
+					{
+						// find the maximum cosine of the angle between joint edges
 						double cosine = fabs(angle(approx[j % 4], approx[j - 2], approx[j - 1]));
 						maxCosine = MAX(maxCosine, cosine);
 					}
-					if (maxCosine < 0.3) {
+
+					// if cosines of all angles are small
+					// (all angles are ~90 degree) then write quandrange
+					// vertices to resultant sequence
+					if (maxCosine < 0.3)
 						squares.push_back(approx);
-					}
 				}
 			}
 		}
 	}
+}
+
+void organisePoints(const vector<vector<Point>> &squares) {
+	Point temp;
+	int quantity = 4;
+	wektorX[0][0] = squares[1][0].x;
+	wektorX[0][1] = squares[1][0].y;
+	wektorX[1][0] = squares[1][1].x;
+	wektorX[1][1] = squares[1][1].y;
+	wektorX[2][0] = squares[1][2].x;
+	wektorX[2][1] = squares[1][2].y;
+	wektorX[3][0] = squares[1][3].x;
+	wektorX[3][1] = squares[1][3].y;
+
+
+
+	for (int i = 0; i < quantity - 1; i++) {
+		for (int j = 0; j < quantity - 1 - i; j++) {
+			if (wektorX[j][0] > wektorX[j + 1][0]) {
+				temp = wektorX[j + 1][0];
+				wektorX[j + 1][0] = wektorX[j][0];
+				wektorX[j][0] = temp;
+			}
+		}
+	}
+
+	if (wektorX[0].y > wektorX[1].y) {
+		temp = wektorX[1];
+		wektorX[1] = wektorX[0];
+		wektorX[0] = temp;
+	}
+
+	if (wektorX[2].y > wektorX[3].y) {
+		temp = wektorX[3];
+		wektorX[3] = wektorX[2];
+		wektorX[2] = temp;
+	}
 
 }
+
+
 
 //Przerobic na funkcje przyjmujaca 3 punkty i zwracaj¹ca index
 
@@ -288,8 +389,7 @@ static int sprawdzamPoprzedni(const vector<vector<Point> >& squares, int szynacz
 
 static void playSound(const vector<vector<Point> >& squares, Point testowyPunkcik) {
 	
-	int szynaczy = FRAME_WIDTH / 3;
-	int wynary = FRAME_HEIGHT / 4;
+	
 
 	if (testowyPunkcik.x < squares[1][0].x && testowyPunkcik.x > squares[1][0].x - szynaczy) {
 		if (testowyPunkcik.y > squares[1][0].y && testowyPunkcik.y < squares[1][0].y + wynary) {		
@@ -463,6 +563,13 @@ int main(int argc, char** argv) {
 	vCapture.set(CV_CAP_PROP_FRAME_HEIGHT, WINDOW_HEIGHT);
 	waitKey(30);
 
+	organisePoints(squares);
+
+	/*for (int i = 0; i < 4; i++) {
+		cout << wektorX[i] << endl;
+	}
+	*/
+	/*
 	while (1) {
 
 		vCapture.read(imgOriginal);
@@ -474,6 +581,6 @@ int main(int argc, char** argv) {
 		//p = flashFinder(imgOriginal,squares);
 		//playSound(squares, p);
 	}
-
+	*/
 	return 0;
 }
