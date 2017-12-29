@@ -27,17 +27,22 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     settings.cpp \
-    dialog.cpp
+    dialog.cpp \
+    game.cpp \
+    Box.cpp
 
 HEADERS += \
         mainwindow.h \
     settings.h \
-    dialog.h
+    dialog.h \
+    game.h \
+    Box.h
 
 FORMS += \
         mainwindow.ui \
     settings.ui \
-    dialog.ui
+    dialog.ui \
+    game.ui
 
 DISTFILES += \
     ../OtherFiles/memoryGameIcons/1.gif \

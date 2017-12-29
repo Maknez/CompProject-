@@ -1,5 +1,5 @@
 #include "settings.h"
-#include "mainwindow.h"
+#include "game.h"
 #include "ui_settings.h"
 #include "stdlib.h"
 #include <iostream>
@@ -48,8 +48,8 @@ void Settings::on_pushButton_clicked()
     for(int i = 0; i<12;i++) {
         tab[i] = NULL;
     }
-    MainWindow w;
-    w.setButton1(random(0));
+    Game w;
+    /*w.setButton1(random(0));
     w.setButton2(random(1));
     w.setButton3(random(2));
     w.setButton4(random(3));
@@ -60,6 +60,6 @@ void Settings::on_pushButton_clicked()
     w.setButton9(random(8));
     w.setButton10(random(9));
     w.setButton11(random(10));
-    w.setButton12(random(11));
+    w.setButton12(random(11));*/
     this->close();
 }
