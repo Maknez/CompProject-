@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <QDialog>
+#include <Box.h>
 
 namespace Ui {
 class Game;
@@ -14,14 +15,18 @@ class Game : public QDialog
 public:
     explicit Game(QWidget *parent = 0);
     ~Game();
-	void clearCards();
-	static QPushButton *prev;
-	static QString prevImage;
-	void on_pushButton_13_clicked();
-	void uncoverTheCard(QPushButton *, QString);
 
+	Box *prevBox;
+	Box *tableOfBoxes[12];
+
+	void game();
+	void initTheBoxes();
+	void clearCards();
+	void randomizeTheCards();
+	void uncoverTheCard(Box *);
+
+	Ui::Game *ui;
 private:
-    Ui::Game *ui;
 };
 
 #endif // GAME_H

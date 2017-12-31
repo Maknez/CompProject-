@@ -3,9 +3,11 @@
 #include "dialog.h"
 #include "settings.h"
 #include <QPushButton>
+#include <Box.h>
 
 int countOfCards = 0;
 int points = 0;
+int tab[12];
 QString pathToIcons = "/Users/michalparysz/Desktop/projectCpp/OtherFiles/memoryGameIcons/";
 
 Game::Game(QWidget *parent) :
@@ -13,29 +15,71 @@ Game::Game(QWidget *parent) :
     ui(new Ui::Game)
 {
     ui->setupUi(this);
+	game();
 }
+
+Box *prevBox;
 
 Game::~Game()
 {
     delete ui;
 }
+void Game::game() {
+	initTheBoxes();
+	randomizeTheCards();
 
-void Game::uncoverTheCard(QPushButton *button, QString image) {
-	if (image != " ") {
+}
+
+void Game::initTheBoxes() {
+	Game *game;
+	QPushButton *tableOfButtons[12] = {
+		game->ui->pushButton,
+		game->ui->pushButton_2,
+		game->ui->pushButton_3,
+		game->ui->pushButton_4,
+		game->ui->pushButton_5,
+		game->ui->pushButton_6,
+		game->ui->pushButton_7,
+		game->ui->pushButton_8,
+		game->ui->pushButton_9,
+		game->ui->pushButton_10,
+		game->ui->pushButton_11,
+		game->ui->pushButton_12
+	};
+
+	for (int i = 0; i < 12; i++) {
+		game->tableOfBoxes[i] = new Box(tableOfButtons[i]);
+	}
+}
+void Game::randomizeTheCards() {
+	for (int i = 0; i<12; i++) {
+		tab[i] = NULL;
+	}
+	Settings setting;
+	Game *game;
+	for (int i = 0; i < 12; i++) {
+		game->tableOfBoxes[i]->setImage(setting.random(i) + ".gif");
+	}
+}
+
+void Game::uncoverTheCard(Box *box) { // to do
+	Game *game;
+	if (box->getImage() != " " && !box->getCover) {
 		if (countOfCards < 2) {
-			button->setStyleSheet("background-image:url(" + pathToIcons + image + ")");
+			box->getButton()->setStyleSheet("background-image:url(" + pathToIcons + box->getImage() + ")");
 			countOfCards++;
 			if (countOfCards == 1) {
-				prevImage = image;
-				prev = button;
+				game->prevBox = box;
 			}
 			if (countOfCards == 2) {
-				if (image != prevImage) {
-					prev->setStyleSheet("background-image:url('')");
-					button->setStyleSheet("background-image:url('')");
+				if (box->getImage() != game->prevBox->getImage()) {
+					game->prevBox->getButton()->setStyleSheet("background-image:url('')");
+					box->getButton()->setStyleSheet("background-image:url('')");
 				}
-				else if (button != prev) {
+				else if (box->getButton() != game->prevBox->getButton()) {
 					points++;
+					game->prevBox->setCover(true);
+					box->setCover(true);
 					if (points == 6) {
 						clearCards();
 						Dialog page;
@@ -48,7 +92,7 @@ void Game::uncoverTheCard(QPushButton *button, QString image) {
 		}
 	}
 	else {
-		button->setStyleSheet("background-image:url('')");
+		box->getButton()->setStyleSheet("background-image:url('')");
 	}
 }
 
@@ -67,11 +111,3 @@ void Game::clearCards() {
 	uncoverTheCard(ui->pushButton_12, " ");
 }
 
-void Game::on_pushButton_13_clicked()
-{
-	clearCards();
-	countOfCards = 0;
-	Settings page;
-	page.setModal(true);
-	page.exec();
-}
