@@ -49,5 +49,5 @@ void MainWindow::options() {
 }
 
 void MainWindow::exit() {
-	this->exit();
+	this->close();
 }
