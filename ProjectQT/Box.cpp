@@ -1,4 +1,4 @@
-#include "Box.h"
+#include "box.h"
 #include <QPushButton>
 
 Box::Box(QPushButton * button) {

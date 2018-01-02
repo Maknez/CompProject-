@@ -15,10 +15,14 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+	bool frameFound;
+	Ui::MainWindow *ui;
 private slots:
 	void startGame();
+	void searchForFrame();
+	void options();
+	void exit();
 private:
-    Ui::MainWindow *ui;
 };
 
 #endif // MAINWINDOW_H

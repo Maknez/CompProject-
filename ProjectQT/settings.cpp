@@ -1,13 +1,8 @@
 #include "settings.h"
 #include "stdlib.h"
 #include <iostream>
-int tab[12];
 
-Settings::Settings() {
-	//for (int i = 0; i<12; i++) {
-		//tab[i] = NULL;
-	//}
-}
+Settings::Settings() {}
 
 Settings::~Settings() {}
 
