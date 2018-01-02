@@ -1,30 +1,32 @@
 #include "Box.h"
 #include <QPushButton>
 
-
-Box::Box(QPushButton *Button) {
-	button = new QPushButton(Button);
-	image = " ";
+Box::Box(QPushButton * button) {
 	isUncovered = false;
+	this->button = button;
 }
 
 Box::~Box() {}
 
-void Box::setImage(QString Image) {
-	image = Image;
+void Box::setButton(QPushButton *button) {
+	this->button = button;
+}
+
+void Box::setImage(QString image) {
+	this->image = image;
 }
 void Box::setCover(bool value) {
-	isUncovered = value;
+	this->isUncovered = value;
 }
 
 QPushButton* Box::getButton() {
-	return button;
+	return this->button;
 }
 
 QString Box::getImage() {
-	return image;
+	return this->image;
 }
 
 bool Box::getCover() {
-	return isUncovered;
+	return this->isUncovered;
 }
