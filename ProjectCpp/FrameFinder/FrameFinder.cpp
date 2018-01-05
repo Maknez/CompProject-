@@ -1,73 +1,37 @@
-#include <iostream>
-#include <opencv2/opencv.hpp>
-#include <sstream>
-#include <conio.h>
+#include "Finder.h"
+#include "FrameFinder.h"
 
-using namespace cv;
 using namespace std;
+using namespace cv;
 
-const int FRAME_WIDTH = 1280;
-const int FRAME_HEIGHT = 720;
+void FrameFinder::saveBinaryImg() {
+	vCapture.open(0);
+	vCapture.set(CV_CAP_PROP_FRAME_WIDTH, WINDOW_WIDTH);
+	vCapture.set(CV_CAP_PROP_FRAME_HEIGHT, WINDOW_HEIGHT);
 
+	while (!kbhit()) {
+		vCapture.read(imgOriginal);
 
-int H_MIN = 0;
-int H_MAX = 256;
-int S_MIN = 0;
-int S_MAX = 256;
-int V_MIN = 0;
-int V_MAX = 256;
+		inRange(imgOriginal, Scalar(H_MIN_1, S_MIN_1, V_MIN_1), Scalar(H_MAX_1, S_MAX_1, V_MAX_1), binaryImg1);
+		inRange(imgOriginal, Scalar(H_MIN_2, S_MIN_2, V_MIN_2), Scalar(H_MAX_2, S_MAX_2, V_MAX_2), binaryImg2);
+		add(binaryImg1, binaryImg2, binaryImg);
+		resize(imgOriginal, imgOriginal, Size(WINDOW_WIDTH, WINDOW_HEIGHT));
 
-void morphOps(Mat &thresh) {
+		if (useMorphOps) {
+			morphOps(binaryImg);
+		}
 
-	Mat erodeElement = getStructuringElement(MORPH_RECT, Size(1, 1));
-	Mat dilateElement = getStructuringElement(MORPH_RECT, Size(12, 12));
-
-	erode(thresh, thresh, erodeElement);
-	erode(thresh, thresh, erodeElement);
-
-	dilate(thresh, thresh, dilateElement);
-	dilate(thresh, thresh, dilateElement);
-}
-
-int main(int argc, char** argv)
-{
-	Mat imgOriginal;		// input image
-	Mat hsvImg;   // macierz widoku w kolorach HSV
-	Mat binaryImg; // macierz widoku obrazu binarnego
-	Mat binaryImg1; // macierz widoku obrazu binarnego
-	Mat binaryImg2; // macierz widoku obrazu binarnego
-
-
-
-
-	String zmiennaWejsciowa = argv[1];
-	cout << zmiennaWejsciowa << endl;
-	imgOriginal = cv::imread("TestImages/FrameImages/InputTestImages/" + zmiennaWejsciowa + ".jpg");
-	if (imgOriginal.empty()) {                                  // if unable to open image
-		std::cout << "error: image not read from file\n\n";     // show error message on command line
-		_getch();                                               // may have to modify this line if not using Windows
-		return(0);                                              // and exit program
+		imshow("FrameView", binaryImg);
+		waitKey(30);
 	}
+	imwrite("testImages/PrototypeImages/1.jpg", binaryImg);
+};
 
-
-	bool trackObjects = false;
-	bool useMorphOps = true;
-
-
-	cvtColor(imgOriginal, hsvImg, COLOR_BGR2HSV);
-	inRange(imgOriginal, Scalar(25, 142, 140), Scalar(51, 179, 246), binaryImg1);
-	inRange(imgOriginal, Scalar(30, 56, 170), Scalar(82, 128, 255), binaryImg2);
-	add(binaryImg1, binaryImg2, binaryImg);
-	resize(imgOriginal, imgOriginal, Size(FRAME_WIDTH, FRAME_HEIGHT));
-	resize(hsvImg, hsvImg, Size(FRAME_WIDTH, FRAME_HEIGHT));
-	if (useMorphOps)
-		morphOps(binaryImg);
-	//imshow("binary", binaryImg);
-	//imshow("normal view", imgOriginal);
-	//imshow("hsv view", hsvImg);
-	waitKey(30);
-	imwrite("TestImages/FrameImages/OutputTestImages/" + zmiennaWejsciowa + "OutputImageTest.jpg", binaryImg);
-
-
-	return 0;
-}
+void FrameFinder::morphOps(Mat &thresh) {
+	Mat erodeElement = getStructuringElement(MORPH_RECT, Size(3, 3));
+	Mat dilateElement = getStructuringElement(MORPH_RECT, Size(8, 8));
+	erode(thresh, thresh, erodeElement);
+	erode(thresh, thresh, erodeElement);
+	dilate(thresh, thresh, dilateElement);
+	dilate(thresh, thresh, dilateElement);
+};

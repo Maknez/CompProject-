@@ -5,7 +5,11 @@ include_directories(
 )
 
 add_executable(FrameFinderApp
+	Finder.h
+	Finder.cpp
+	FrameFinder.h
 	FrameFinder.cpp
+	main.cpp
 )
 
 target_link_libraries(FrameFinderApp ${OpenCV_LIBS})
