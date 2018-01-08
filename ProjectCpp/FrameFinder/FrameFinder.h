@@ -24,15 +24,6 @@ public:
 private:
 	Finder finder;
 	VideoCapture vCapture;
-	Mat imgOriginal;
-	Mat binaryImg;
-	Mat binaryImg1;
-	Mat binaryImg2;
-	bool trackObjects = false;
-	bool useMorphOps = true;
-	const int WINDOW_WIDTH = 1280;
-	const int WINDOW_HEIGHT = 720;
-	void morphOps(Mat &thresh);
 	const int H_MIN_1 = 25;
 	const int H_MAX_1 = 51;
 	const int S_MIN_1 = 142;

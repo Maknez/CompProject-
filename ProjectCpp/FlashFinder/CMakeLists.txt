@@ -5,7 +5,11 @@ include_directories(
 )
 
 add_executable(FlashFinderApp
+	Finder.h
+	Finder.cpp
+	FlashFinder.h
 	FlashFinder.cpp
+	main.cpp
 )
 
 target_link_libraries(FlashFinderApp ${OpenCV_LIBS})
