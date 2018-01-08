@@ -4,14 +4,14 @@
 using namespace std;
 using namespace cv;
 
-Point FlashFinder::getPoint(const vector<vector<Point> >& squares) {
+Point FlashFinder::getFlash(const vector<vector<Point> >& squares) {
 
 	inRange(finder.imgOriginal, Scalar(0, 0, RED_COLOR), finder.binaryImg);
 
 	if (finder.useMorphOps) {
 		finder.morphOps(finder.binaryImg);
 	}
-	HoughCircles(finder.binaryImg, finder.v3fCircles, CV_HOUGH_GRADIENT, 2, finder.binaryImg.rows / 4, 40, 20, 5, 400);
+	HoughCircles(finder.binaryImg, v3fCircles, CV_HOUGH_GRADIENT, 2, finder.binaryImg.rows / 4, 40, 20, 5, 400);
 
 	if (v3fCircles.size() == 0) {
 		p.x = -1;
