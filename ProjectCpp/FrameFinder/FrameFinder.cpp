@@ -24,7 +24,7 @@ void FrameFinder::saveBinaryImg() {
 		imshow("FrameView", binaryImg);
 		waitKey(30);
 	}
-	imwrite("testImages/PrototypeImages/1.jpg", binaryImg);
+	imwrite("../testImages/1.jpg", binaryImg);
 };
 
 void FrameFinder::morphOps(Mat &thresh) {

@@ -40,7 +40,6 @@ HEADERS += \
 
 FORMS += \
         mainwindow.ui \
-    settings.ui \
     dialog.ui \
     game.ui
 

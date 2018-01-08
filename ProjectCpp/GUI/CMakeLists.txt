@@ -9,23 +9,26 @@ find_package(Qt5Core)
 find_package(QT5)
 
 set(GUI_SRCS 
+box.cpp
 dialog.cpp
-moc_settings.cpp
+game.cpp
 main.cpp
 mainwindow.cpp
+moc_dialog.cpp
+moc_game.cpp
 moc_mainwindow.cpp
 settings.cpp
-moc_dialog.cpp
 )
 
 set(GUI_HEADERS
+box.h
 dialog.h
+game.h
 mainwindow.h
-ui_mainwindow.h
-moc_predefs.h
 settings.h
-ui_settings.h
 ui_dialog.h
+ui_game.h
+ui_mainwindow.h
 ) 
 
 add_executable(GUI ${GUI_SRCS} ${GUI_HEADERS})

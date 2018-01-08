@@ -75,7 +75,7 @@ void frameFinder() {
 		waitKey(30);
 	}
 	//vCapture.release();
-	imwrite("testImages/PrototypeImages/1.jpg", binaryImg);
+	imwrite("testImages/1.jpg", binaryImg);
 }
 
 String numberToString(int Number) {

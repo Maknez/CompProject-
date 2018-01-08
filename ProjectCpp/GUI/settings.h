@@ -1,29 +1,16 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
+#include <qstring.h>
 
-#include <QDialog>
-#include "mainwindow.h"
 
-namespace Ui {
-class Settings;
-}
-
-class Settings : public QDialog
-{
-    Q_OBJECT
-
+class Settings {
 public:
-    explicit Settings(QWidget *parent = 0);
+	int tab[12];
+    Settings();
     bool validation(int);
     QString random(int iterator);
     QString toString(int);
     ~Settings();
-
-private slots:
-    void on_pushButton_clicked();
-
-private:
-    Ui::Settings *ui;
 };
 
 #endif // SETTINGS_H
