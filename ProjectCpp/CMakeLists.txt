@@ -10,7 +10,7 @@ add_subdirectory(FlashFinder)
 
 add_subdirectory(FrameFinder)
 
-add_subdirectory(PrototypeImg)
+add_subdirectory(ViewTransformation)
 
 add_subdirectory(PrototypeCam)
 
