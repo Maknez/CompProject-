@@ -1,48 +1,37 @@
 #include "Finder.h"
-#include "FlashFinder.h"
+#include "FindSquare.h"
+#include "ViewTransformation.h"
 
 using namespace std;
 using namespace cv;
 
-Point FlashFinder::getFlash() {
+Mat ViewTransformation::getOutputImgToFlashFinder() {
 
-	inRange(finder.imgOriginal, Scalar(H_MIN, S_MIN, V_MIN), Scalar(H_MAX, S_MAX, V_MAX), finder.binaryImg);
+	return outputImgToFlashFinder;
+}
 
-	if (finder.useMorphOps) {
-		finder.morphOps(finder.binaryImg);
+void ViewTransformation::matTransformation() {
+	Point2f src[4];
+	for (int i = 0; i < 4; i++) {
+		src[i] = findSquare.getVector(i);
 	}
-	HoughCircles(finder.binaryImg, v3fCircles, CV_HOUGH_GRADIENT, 2, finder.binaryImg.rows / 4, 40, 20, 5, 400);
+	
+	dst[0].x = 0;
+	dst[0].y = 0;
+	dst[1].x = 600;
+	dst[1].y = 800;
+	dst[2].x = 600;
+	dst[2].y = 0;
+	dst[3].x = 0;
+	dst[3].y = 800;
+	
+	Mat warpPerspectiveSrcImg = finder.imgOriginal;
+	transformMatrix = getPerspectiveTransform(src, dst);
+	warpPerspective(warpPerspectiveSrcImg, outputImgToFlashFinder, transformMatrix, dsize(width, height), INTER_LINEAR, BORDER_CONSTANT, Scalar());
+}
 
-	if (v3fCircles.size() == 0) {
-		p.x = -1;
-		p.y = -1;
-		waitKey(30);
-		imshow("ABCORIGINAL", finder.imgOriginal);
-		imshow("FlashView", finder.binaryImg);
+Size ViewTransformation::dsize(float width, float height)
+{
+	return Size();
+}
 
-		return p;
-	}
-	else {
-		for (int i = 0; i < v3fCircles.size(); i++) {
-			p.x = (int)v3fCircles[0][0];
-			p.y = (int)v3fCircles[0][1];
-			poziomXpoczatek.x = (int)(v3fCircles[0][0] - 10);
-			poziomXpoczatek.y = (int)v3fCircles[0][1];
-			poziomXkoniec.x = (int)(v3fCircles[0][0] + 10);
-			poziomXkoniec.y = (int)v3fCircles[0][1];
-			poziomYpoczatek.x = (int)v3fCircles[0][0];
-			poziomYpoczatek.y = (int)(v3fCircles[0][1] - 10);
-			poziomYkoniec.x = (int)v3fCircles[0][0];
-			poziomYkoniec.y = (int)(v3fCircles[0][1] + 10);
-			line(finder.imgOriginal, poziomXpoczatek, poziomXkoniec, Scalar(0, 0, RED_COLOR), 2, 8, 0);
-			line(finder.imgOriginal, poziomYpoczatek, poziomYkoniec, Scalar(0, 0, RED_COLOR), 2, 8, 0);
-
-			waitKey(30);
-		}
-		waitKey(30);
-
-		imshow("ABCORIGINAL", finder.imgOriginal);
-		imshow("FlashView", finder.binaryImg);
-		return p;
-	}
-};

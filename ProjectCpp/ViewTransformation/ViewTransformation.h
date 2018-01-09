@@ -9,27 +9,27 @@
 #include <string.h>
 #include <stdlib.h>
 #include "Finder.h"
+#include "FindSquare.h"
 
 #pragma once
 
 using namespace cv;
 using namespace std;
 
-class FlashFinder {
+class ViewTransformation {
 public:
-	FlashFinder() {};
-	Point getFlash(const vector<vector<Point> >& squares);
-
+	ViewTransformation() {};
+	Mat getOutputImgToFlashFinder();
+	void matTransformation();
 private:
-	Finder finder;
-	vector<Vec3f> v3fCircles;
-	Point p, poziomXpoczatek, poziomXkoniec, poziomYpoczatek, poziomYkoniec;
-	const int H_MIN = 117;
-	const int H_MAX = 255;
-	const int S_MIN = 251;
-	const int S_MAX = 255;
-	const int V_MIN = 0;
-	const int V_MAX = 157;
-	const int RED_COLOR = 255;
+	FindSquare findSquare;		// stad wektor wejsciowy jakas funkcja getVector() jako InputArray src w getPerspective()
+	Finder finder;				// stad bedzie InputArray src do warpPerspective()
+	Mat transformMatrix;		// do tego przypiszemy wynik getPerspective(),  czyli InputArray M w funkcji warpPerspective()
+		
+	Mat outputImgToFlashFinder; //OutputArray dst w warpPerspecitve()
+	Point2f dst[4];
+	float width = 600;
+	float height = 800;
+	Size dsize(float, float);
 
 };

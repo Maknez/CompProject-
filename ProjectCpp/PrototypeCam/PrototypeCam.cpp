@@ -20,7 +20,7 @@ int FRAME_WIDTH;
 int FRAME_HEIGHT;
 int szynaczy;
 int wynary;
-vector<Point> organizedSquares;
+
 int wektorX[][4];
 int thresh = 50, N = 5;
 
@@ -258,43 +258,6 @@ static void findSquares(const Mat& image, vector<vector<Point> >& squares)
 	}
 }
 
-void organisePoints(const vector<vector<Point>> &squares) {
-	Point temp;
-	int quantity = 4;
-	wektorX[0][0] = squares[1][0].x;
-	wektorX[0][1] = squares[1][0].y;
-	wektorX[1][0] = squares[1][1].x;
-	wektorX[1][1] = squares[1][1].y;
-	wektorX[2][0] = squares[1][2].x;
-	wektorX[2][1] = squares[1][2].y;
-	wektorX[3][0] = squares[1][3].x;
-	wektorX[3][1] = squares[1][3].y;
-
-
-
-	for (int i = 0; i < quantity - 1; i++) {
-		for (int j = 0; j < quantity - 1 - i; j++) {
-			if (wektorX[j][0] > wektorX[j + 1][0]) {
-				temp = wektorX[j + 1][0];
-				wektorX[j + 1][0] = wektorX[j][0];
-				wektorX[j][0] = temp;
-			}
-		}
-	}
-
-	if (wektorX[0].y > wektorX[1].y) {
-		temp = wektorX[1];
-		wektorX[1] = wektorX[0];
-		wektorX[0] = temp;
-	}
-
-	if (wektorX[2].y > wektorX[3].y) {
-		temp = wektorX[3];
-		wektorX[3] = wektorX[2];
-		wektorX[2] = temp;
-	}
-
-}
 
 
 
@@ -542,7 +505,7 @@ int main(int argc, char** argv) {
 
 		//frameFinder();
 		
-	image = imread("testImages/PrototypeImages/1.jpg", 1);
+	image = imread("1.jpg", 1);
 	if (image.empty()) {
 		cout << "error: image not read from file\n\n";
 		system("PAUSE");
@@ -557,13 +520,7 @@ int main(int argc, char** argv) {
 	}
 	waitKey(30);
 
-	VideoCapture vCapture;
-	vCapture.open(0);
-	vCapture.set(CV_CAP_PROP_FRAME_WIDTH, WINDOW_WIDTH);
-	vCapture.set(CV_CAP_PROP_FRAME_HEIGHT, WINDOW_HEIGHT);
-	waitKey(30);
-
-	organisePoints(squares);
+	cout << squares[1][0];
 
 	/*for (int i = 0; i < 4; i++) {
 		cout << wektorX[i] << endl;
@@ -582,5 +539,6 @@ int main(int argc, char** argv) {
 		//playSound(squares, p);
 	}
 	*/
+	system("PAUSE");
 	return 0;
 }

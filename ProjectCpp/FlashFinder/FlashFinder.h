@@ -18,7 +18,7 @@ using namespace std;
 class FlashFinder {
 public:
 	FlashFinder() {};
-	Point getFlash(const vector<vector<Point> >& squares);
+	Point getFlash();
 
 private:
 	Finder finder;

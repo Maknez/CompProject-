@@ -10,6 +10,8 @@ add_executable(ViewTranformation
 	Finder.h
 	Finder.cpp
 	main.cpp
+	FindSquare.cpp
+	FindSquare.h
 )
 
 target_link_libraries(ViewTranformation ${OpenCV_LIBS})
