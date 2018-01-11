@@ -1,5 +1,4 @@
-#ifndef Box_HEADER
-#define Box_HEADER
+#pragma once
 #include <QPushButton>
 
 class Box {
@@ -17,4 +16,3 @@ public:
 	QString getImage();
 	bool getCover();
 };
-#endif

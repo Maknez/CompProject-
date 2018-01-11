@@ -1,5 +1,4 @@
-#ifndef SETTINGS_H
-#define SETTINGS_H
+#pragma once
 #include <qstring.h>
 
 
@@ -12,5 +11,3 @@ public:
     QString toString(int);
     ~Settings();
 };
-
-#endif // SETTINGS_H

@@ -1,5 +1,4 @@
-#ifndef GAME_H
-#define GAME_H
+#pragma once
 #include <QObject>
 #include <QDialog>
 #include "box.h"
@@ -28,4 +27,4 @@ public:
 private:
 };
 
-#endif // GAME_H
+

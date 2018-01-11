@@ -6,23 +6,13 @@ using namespace std;
 using namespace cv;
 
 Mat ViewTransformation::getOutputImgToFlashFinder() {
-
 	return outputImgToFlashFinder;
 }
 
 void ViewTransformation::matTransformation(Mat image, FindSquare& findSquare) {
 	
 	sortVector(findSquare);
-	/*
-	src[0].x = 250;
-	src[0].y = 100;
-	src[1].x = 500;
-	src[1].y = 500;
-	src[2].x = 490;
-	src[2].y = 120;
-	src[3].x = 230;
-	src[3].y = 510;
-	*/
+
 	dst[2].x = 0;
 	dst[2].y = 0;
 	dst[0].x = 600;
@@ -31,19 +21,10 @@ void ViewTransformation::matTransformation(Mat image, FindSquare& findSquare) {
 	dst[3].y = 0;
 	dst[1].x = 0;
 	dst[1].y = 800;
-	/*Mat 
-		warpPerspectiveSrcImg = imread("1.jpg", 1);
-	if (warpPerspectiveSrcImg.empty()) {
-		cout << "error: image not read from file\n\n";
-		system("PAUSE");
-	}*/
-	//Mat warpPerspectiveSrcImg = finder.imgOriginal;
-
 
 	Mat warpPerspectiveSrcImg = image;
 	transformMatrix = getPerspectiveTransform(src, dst);
 	warpPerspective(warpPerspectiveSrcImg, outputImgToFlashFinder, transformMatrix, outputImgToFlashFinder.size(), INTER_LINEAR, BORDER_CONSTANT, Scalar());
-
 }
 
 

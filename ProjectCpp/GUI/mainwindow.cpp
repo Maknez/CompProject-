@@ -3,7 +3,7 @@
 #include "game.h"
 #include <QPushButton>
 #include "dialog.h"
-
+#include "../CV/CV.h"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -24,7 +24,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::startGame()
 {
-	if (this->frameFound) {
+	//Bylo 	if (this->frameFound) ale zwraca zawsze false 
+	if (!this->frameFound) {
 		Game game;
 		game.setModal(true);
 		game.exec();
@@ -37,10 +38,12 @@ void MainWindow::startGame()
 
 void MainWindow::searchForFrame()
 {
-
+	
 	// wywolanie funkcji do odnalezienia ramki ktora zwraca true/false
-	this->frameFound = true; // dodac do metody framefinder return true/false
-	Dialog *page = new Dialog("Powodzenie");
+	this->frameFound = computerVision.CVFrame(); 
+	//this->frameFound = true;
+	//Funkcja CVFRame() zwraca zawsze false dlatego w startGame() zmienilismy 	if (!this->frameFound)
+	Dialog *page = new Dialog("Kalibracja zakonczona powodzeniem");
 	page->setModal(true);
 	page->exec();
 }

@@ -1,31 +1,29 @@
-#include "FindSquare.h"
-#pragma once
+#include "FlashFinder.h"
+#include "Finder.h"
+/*
+FlashFinder* flash; 
+int FRAME_WIDTH;
+int FRAME_HEIGHT;
+int szynaczy;
+int wynary;
+int thresh = 50, N = 5;
 
-using namespace cv;
-using namespace std;
-
-Point2f FindSquare::getVector(int temp) {
-	Point2f pointsArrayToTransform;
-
-	pointsArrayToTransform.x = squares[1][temp].x; 
-	pointsArrayToTransform.y = squares[1][temp].y;
-	/*********************************************************************************************************************************************/
-	/*********************************************************************************************************************************************/
-	/*********************************************************************************************************************************************/
-	/*********************************************************************************************************************************************/
-	/************squares jest pusty po wyjsciu z funkcji findSquares() -----> Mati znajdz rozwiazanie. NIE PUSHUJ NICZEGO*************************/
-	/*********************************************************************************************************************************************/
-	/*********************************************************************************************************************************************/
-	/*********************************************************************************************************************************************/
-	/*********************************************************************************************************************************************/
+const char* wndname = "PrototypeAppView";
 
 
+static double angle(Point pt1, Point pt2, Point pt0) {
+	double dx1 = pt1.x - pt0.x;
+	double dy1 = pt1.y - pt0.y;
+	double dx2 = pt2.x - pt0.x;
+	double dy2 = pt2.y - pt0.y;
 
-	return pointsArrayToTransform;
+	return (dx1*dx2 + dy1*dy2) / sqrt((dx1*dx1 + dy1*dy1)*(dx2*dx2 + dy2*dy2) + 1e-10);
 }
 
-
-void FindSquare::findSquares(const Mat& image) {
+// returns sequence of squares detected on the image.
+// the sequence is stored in the specified memory storage
+static void findSquares(const Mat& image, vector<vector<Point> >& squares)
+{
 	squares.clear();
 
 	Mat pyr, timg, gray0(image.size(), CV_8U), gray;
@@ -104,12 +102,48 @@ void FindSquare::findSquares(const Mat& image) {
 	}
 }
 
-
-double FindSquare::angle(Point pt1, Point pt2, Point pt0) {
-	double dx1 = pt1.x - pt0.x;
-	double dy1 = pt1.y - pt0.y;
-	double dx2 = pt2.x - pt0.x;
-	double dy2 = pt2.y - pt0.y;
-
-	return (dx1*dx2 + dy1*dy2) / sqrt((dx1*dx1 + dy1*dy1)*(dx2*dx2 + dy2*dy2) + 1e-10);
+void drawSquares(const vector<vector<Point> >& squares, Mat image_) {
+	const Point* p = &squares[1][0];
+	int n = (int)squares[1].size();
+	if (p->x > 3 && p->y > 3)
+		polylines(image_, &p, &n, 1, true, Scalar(0, 255, 0), 3, LINE_AA);
+	FRAME_HEIGHT = abs(squares[1][0].y - squares[4][2].y);
+	FRAME_WIDTH = abs(squares[4][2].x - squares[1][0].x);
+	//Rect rectangle = Rect(squares[1][0].x, squares[1][0].y, szerokosc, wysokosc);
+	//Mat croppedImage = image_(rectangle);
+	imshow(wndname, image_);
+	//return image_;
 }
+
+
+
+int main(int argc, char *argv[]) {
+	flash = new FlashFinder();
+	vector<vector<Point> > squares;
+	Mat image;
+
+	
+	image = imread("testImages/PrototypeImages/1.jpg", 1);
+	if (image.empty()) {
+		cout << "error: image not read from file\n\n";
+		system("PAUSE");
+	}
+	try {
+
+		findSquares(image, squares);
+		drawSquares(squares, image);
+	}
+	catch (Exception e) {
+		cout << e.code << endl;
+	}
+	waitKey(30);
+
+	VideoCapture vCapture;
+	vCapture.open(0);
+	//vCapture.set(CV_CAP_PROP_FRAME_WIDTH, WINDOW_WIDTH);
+	//vCapture.set(CV_CAP_PROP_FRAME_HEIGHT, WINDOW_HEIGHT);
+	waitKey(30);
+
+
+	return 0;
+}*/

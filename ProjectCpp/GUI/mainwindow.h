@@ -1,9 +1,10 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
 #include <QMainWindow>
 #include <QPushButton>
 #include <QObject>
+
+#include "../CV/CV.h"
 namespace Ui {
 class MainWindow;
 }
@@ -17,12 +18,15 @@ public:
     ~MainWindow();
 	bool frameFound;
 	Ui::MainWindow *ui;
+
 private slots:
 	void startGame();
 	void searchForFrame();
 	void options();
 	void exit();
+
 private:
+	CV computerVision;
 };
 
-#endif // MAINWINDOW_H
+

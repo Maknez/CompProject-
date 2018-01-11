@@ -1,14 +1,3 @@
-#include <iostream>
-#include <opencv2/opencv.hpp>
-#include <sstream>
-#include <conio.h>
-#include "opencv2/core/core.hpp"
-#include "opencv2/imgproc/imgproc.hpp"
-#include "opencv2/highgui/highgui.hpp"
-#include <math.h>
-#include <string.h>
-#include <stdlib.h>
-
 #include "Finder.h"
 #pragma once
 

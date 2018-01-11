@@ -2,11 +2,12 @@
 
 project(GUI)
 
-include_directories(${QT_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR})
+include_directories(${QT_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR} ${OpenCV_INCLUDE_DIRS})
 find_package(Qt5Widgets)
 find_package(Qt5Gui)
 find_package(Qt5Core)
 find_package(QT5)
+
 
 set(GUI_SRCS 
 box.cpp
@@ -38,4 +39,5 @@ target_link_libraries(GUI
      Qt5::Widgets
      Qt5::Core
      Qt5::Gui
+${OpenCV_LIBS}
 )
