@@ -42,12 +42,14 @@ int main(int argc, char *argv[]) {
 	catch (Exception e) {
 		cout << e.code << endl;
 	}
-	viewTransformation->matTransformation();
 
-	//Mat temp = viewTransformation->getOutputImgToFlashFinder();
+	//cout << findSquare->getVector(1);
+	viewTransformation->matTransformation(image, *findSquare);
+
+	Mat temp = viewTransformation->getOutputImgToFlashFinder();
 	
 	imshow("orgin", image);
-	//imshow("wynik", temp);
+	imshow("wynik", temp);
 
 	waitKey(30);
 	

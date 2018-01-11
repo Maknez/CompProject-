@@ -7,8 +7,8 @@ using namespace std;
 Point2f FindSquare::getVector(int temp) {
 	Point2f pointsArrayToTransform;
 
-	pointsArrayToTransform = squares[1][temp]; 
-
+	pointsArrayToTransform.x = squares[1][temp].x; 
+	pointsArrayToTransform.y = squares[1][temp].y;
 	/*********************************************************************************************************************************************/
 	/*********************************************************************************************************************************************/
 	/*********************************************************************************************************************************************/
@@ -21,9 +21,9 @@ Point2f FindSquare::getVector(int temp) {
 
 
 
-
 	return pointsArrayToTransform;
 }
+
 
 void FindSquare::findSquares(const Mat& image) {
 	squares.clear();
@@ -102,8 +102,6 @@ void FindSquare::findSquares(const Mat& image) {
 			}
 		}
 	}
-	cout << squares[1][1];
-	system("PAUSE");
 }
 
 

@@ -22,8 +22,10 @@ public:
 	double angle(Point pt1, Point pt2, Point pt0); // Wyjeba³em static jak cos to trza dodaæ
 	int thresh = 50, N = 5;
 	Point2f getVector(int temp);
-private:
 	vector<vector<Point> > squares;
 	Mat readImg;
+	
+private:
+
 	
 };
