@@ -55,9 +55,11 @@ void FindSquare::findSquares(const Mat& image) {
 			// find contours and store them all as a list
 			findContours(gray, contours, RETR_LIST, CHAIN_APPROX_SIMPLE);
 
+
 			vector<Point> approx;
 
 			// test each contour
+
 			for (size_t i = 0; i < contours.size(); i++)
 			{
 				// approximate contour with accuracy proportional
@@ -95,6 +97,7 @@ void FindSquare::findSquares(const Mat& image) {
 	if (squares.empty()) {
 		setErrorFrameNotFoundFlag(true);
 	}
+
 	else {
 		setErrorFrameNotFoundFlag(false);
 	}

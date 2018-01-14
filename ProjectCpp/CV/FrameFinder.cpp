@@ -8,7 +8,6 @@ void FrameFinder::saveBinaryImg() {
 	vCapture.open(0);
 	vCapture.set(CV_CAP_PROP_FRAME_WIDTH, finder.WINDOW_WIDTH);
 	vCapture.set(CV_CAP_PROP_FRAME_HEIGHT, finder.WINDOW_HEIGHT);
-
 	while (!kbhit()) {
 		vCapture.read(finder.imgOriginal);
 
@@ -25,5 +24,5 @@ void FrameFinder::saveBinaryImg() {
 		waitKey(30);
 	}
 
-	imwrite("../testImages/1.jpg", finder.binaryImg);
+	imwrite("2.jpg", finder.binaryImg);
 };

@@ -2,6 +2,7 @@
 #include "CV.h"
 #include "FindSquare.h"
 #include "FrameFinder.h"
+#include "FlashFinder.h"
 #include "ViewTransformation.h"
 #include <iostream>
 #include <opencv2/opencv.hpp>
@@ -18,6 +19,7 @@ CV* computerVision;
 Finder* finder;
 FrameFinder* framefinder;
 FindSquare* findSquare;
+FlashFinder* flashfinder;
 ViewTransformation* viewTransformation;
 
 const char* wndname = "PrototypeAppView";
@@ -27,43 +29,49 @@ using namespace cv;
 using namespace std;
 
 int main(int argc, char *argv[]) {
-	/*findSquare = new FindSquare();
+
+	VideoCapture vCapture;
+
+	findSquare = new FindSquare();
 	finder = new Finder();
 	viewTransformation = new ViewTransformation();
 	framefinder = new FrameFinder();
+	flashfinder = new FlashFinder();
+
 	Mat image;
 	Mat imgOriginal;
 
-
+	/*
 	while (findSquare->getErrorFrameNotFoundFlag()) {
 		framefinder->saveBinaryImg();
 		image = imread("1.jpg", 1);
-		if (image.empty()) {
-			cout << "error: image not read from file\n\n";
-			system("PAUSE");
-		}
-		try {
 
-			findSquare->findSquares(image);
-		}
-		catch (Exception e) {
-			cout << e.code << endl;
-		}
+		findSquare->findSquares(image);
+		_getch();
 	}
-	VideoCapture vCapture;
 	vCapture.open(0);
 	vCapture.set(CV_CAP_PROP_FRAME_WIDTH, finder->WINDOW_WIDTH);
 	vCapture.set(CV_CAP_PROP_FRAME_HEIGHT, finder->WINDOW_HEIGHT);
-	
-	
+	while (true) {
 
+		vCapture.read(finder->imgOriginal);
+		viewTransformation->matTransformation(finder->imgOriginal, *findSquare);
+		Mat normalizedImg = viewTransformation->getOutputImgToFlashFinder();
+		flashfinder->getFlash(normalizedImg);
+		int index = flashfinder->getIndex();
+		if (index != -1) {
+			cout << index << endl;
+		}
 
-	viewTransformation->matTransformation(image, *findSquare);
-	Mat normalizedImg = viewTransformation->getOutputImgToFlashFinder();
+	}
+*/	int i = (550 / 800) * 4;
+	cout << i;
+	//viewTransformation->matTransformation(image, *findSquare);
+	//Mat normalizedImg = viewTransformation->getOutputImgToFlashFinder();
 	
-	*/
-	computerVision = new CV();
-	computerVision->CVFrame();
+	
+	//computerVision = new CV();
+	//computerVision->CVFrame();
 	system("PAUSE");
 	return 0;
 }

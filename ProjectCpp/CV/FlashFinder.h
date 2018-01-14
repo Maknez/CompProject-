@@ -9,6 +9,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "Finder.h"
+#include "ViewTransformation.h"
 
 #pragma once
 
@@ -18,11 +19,15 @@ using namespace std;
 class FlashFinder {
 public:
 	FlashFinder() {};
-	Point getFlash();
-
+	void getFlash(Mat imgOriginal);
+	void setIndex();
+	int getIndex();
 private:
 	Finder finder;
+	ViewTransformation viewTransformation;
+	VideoCapture vCapture;
 	vector<Vec3f> v3fCircles;
+	int poprzedniIndex = -1, index, indexX, indexY;
 	Point p, poziomXpoczatek, poziomXkoniec, poziomYpoczatek, poziomYkoniec;
 	const int H_MIN = 117;
 	const int H_MAX = 255;

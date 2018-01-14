@@ -12,6 +12,7 @@ class CV {
 public:
 	CV() {};
 	bool CVFrame();
+	//bool CVFlash();
 	Mat image;
 	FrameFinder frameFinder;
 	//FlashFinder* flashFinder;
