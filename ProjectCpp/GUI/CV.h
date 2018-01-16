@@ -1,7 +1,7 @@
 #include "FrameFinder.h"
 #include "FindSquare.h"
-
-//#include "FlashFinder.h"
+#include "FlashFinder.h"
+#include "ViewTransformation.h"
 
 #pragma once
 using namespace cv;
@@ -15,9 +15,13 @@ public:
 	int CVFlash();
 	Mat image;
 	FrameFinder frameFinder;
-	//FlashFinder* flashFinder;
+	FlashFinder flashFinder;
 	FindSquare findSquare;
+	Finder finder;
+	ViewTransformation viewTransformation;
 	bool flag;
+	VideoCapture vCapture;
+	void openCam();
 private:
 
 };

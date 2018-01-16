@@ -4,11 +4,13 @@
 #include "dialog.h"
 #include "stdlib.h"
 #include <iostream>
+#include "mainwindow.h"
 
-Game::Game(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Game)
+Game::Game(CV *computerVision, QWidget *parent) :
+	QDialog(parent),
+	ui(new Ui::Game)
 {
+	this->computerVission = computerVision;
 	this->pathToIcons = "C:/opencv/ProjectAppsBinaries/GUI/memoryGameIcons/";
 	this->countOfCards = 0;
 	this->points = 0;
@@ -23,14 +25,15 @@ Game::~Game()
 void Game::game() {
 	initTheBoxes();
 	randomizeTheCards();
-	// rozgrywka
+	computerVission->openCam();
 	do {
-		int number = (rand() % static_cast<int>(12));
-		uncoverTheCard(this->tableOfBoxes[number]);
+		this->exec();
+		int number = computerVission->CVFlash();
+		cout << number << endl;
+		if (number != -1) {
+			uncoverTheCard(this->tableOfBoxes[number]);
+		}
 	} while (this->points != 6);
-
-	// for(int i = 0; i < 12; i++)
-		// this->tableOfBoxes[i]->getButton()->setStyleSheet("background-image:url(" + this->pathToIcons + this->tableOfBoxes[i]->getImage() + ")");
 }
 
 void Game::initTheBoxes() {

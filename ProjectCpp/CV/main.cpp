@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
 	Mat image;
 	Mat imgOriginal;
 
-	/*
+	
 	while (findSquare->getErrorFrameNotFoundFlag()) {
 		framefinder->saveBinaryImg();
 		image = imread("1.jpg", 1);
@@ -59,13 +59,12 @@ int main(int argc, char *argv[]) {
 		Mat normalizedImg = viewTransformation->getOutputImgToFlashFinder();
 		flashfinder->getFlash(normalizedImg);
 		int index = flashfinder->getIndex();
-		if (index != -1) {
+		//if (index != -1) {
 			cout << index << endl;
-		}
+		//}
 
 	}
-*/	int i = (550 / 800) * 4;
-	cout << i;
+
 	//viewTransformation->matTransformation(image, *findSquare);
 	//Mat normalizedImg = viewTransformation->getOutputImgToFlashFinder();
 	

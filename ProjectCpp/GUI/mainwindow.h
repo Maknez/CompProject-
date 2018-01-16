@@ -4,7 +4,7 @@
 #include <QPushButton>
 #include <QObject>
 
-#include "../CV/CV.h"
+#include "CV.h"
 namespace Ui {
 class MainWindow;
 }
@@ -14,11 +14,12 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(CV *computerVision, QWidget *parent = 0);
+	MainWindow();
     ~MainWindow();
 	bool frameFound;
 	Ui::MainWindow *ui;
-
+	CV *computerVission;
 private slots:
 	void startGame();
 	void searchForFrame();
@@ -26,7 +27,6 @@ private slots:
 	void exit();
 
 private:
-	CV computerVision;
 };
 
 

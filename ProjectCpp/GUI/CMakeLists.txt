@@ -19,6 +19,12 @@ moc_dialog.cpp
 moc_game.cpp
 moc_mainwindow.cpp
 settings.cpp
+ViewTransformation.cpp
+Finder.cpp
+FindSquare.cpp
+FrameFinder.cpp	
+CV.cpp
+FlashFinder.cpp
 )
 
 set(GUI_HEADERS
@@ -30,6 +36,12 @@ settings.h
 ui_dialog.h
 ui_game.h
 ui_mainwindow.h
+ViewTransformation.h
+Finder.h
+FindSquare.h
+FrameFinder.h	
+CV.h
+FlashFinder.h
 ) 
 
 add_executable(GUI ${GUI_SRCS} ${GUI_HEADERS})

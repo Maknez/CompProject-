@@ -21,4 +21,9 @@ bool CV::CVFrame() {
 	}
 	flag = findSquare.getErrorFrameNotFoundFlag(); cout << flag;
 	return flag;
+}
+
+int CV::CVFlash() {
+
+	return 0;
 };
