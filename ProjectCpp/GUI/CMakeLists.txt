@@ -29,7 +29,12 @@ FlashFinder.cpp
 
 set(GUI_HEADERS
 box.h
+CV.h
 dialog.h
+Finder.h
+FindSquare.h
+FrameFinder.h	
+FlashFinder.h
 game.h
 mainwindow.h
 settings.h
@@ -37,11 +42,6 @@ ui_dialog.h
 ui_game.h
 ui_mainwindow.h
 ViewTransformation.h
-Finder.h
-FindSquare.h
-FrameFinder.h	
-CV.h
-FlashFinder.h
 ) 
 
 add_executable(GUI ${GUI_SRCS} ${GUI_HEADERS})

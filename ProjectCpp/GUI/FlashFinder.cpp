@@ -18,7 +18,7 @@ void FlashFinder::getFlash(Mat imgOriginal) {
 		for (int i = 0; i < v3fCircles.size(); i++) {
 			p.x = (int)v3fCircles[0][0];
 			p.y = (int)v3fCircles[0][1];
-/*			poziomXpoczatek.x = (int)(v3fCircles[0][0] - 10);
+			poziomXpoczatek.x = (int)(v3fCircles[0][0] - 10);
 			poziomXpoczatek.y = (int)v3fCircles[0][1];
 			poziomXkoniec.x = (int)(v3fCircles[0][0] + 10);
 			poziomXkoniec.y = (int)v3fCircles[0][1];
@@ -27,15 +27,15 @@ void FlashFinder::getFlash(Mat imgOriginal) {
 			poziomYkoniec.x = (int)v3fCircles[0][0];
 			poziomYkoniec.y = (int)(v3fCircles[0][1] + 10);
 			line(imgOriginal, poziomXpoczatek, poziomXkoniec, Scalar(0, 0, RED_COLOR), 2, 8, 0);
-			line(imgOriginal, poziomYpoczatek, poziomYkoniec, Scalar(0, 0, RED_COLOR), 2, 8, 0);*/
+			line(imgOriginal, poziomYpoczatek, poziomYkoniec, Scalar(0, 0, RED_COLOR), 2, 8, 0);
 		}
 		setIndex();
 	}	
 	
 	waitKey(30);
 
-	//imshow("ABCORIGINAL", imgOriginal);
-	//imshow("FlashView", finder.binaryImg);
+	imshow("ABCORIGINAL", imgOriginal);
+	imshow("FlashView", finder.binaryImg);
 };
 
 void FlashFinder::setIndex() {

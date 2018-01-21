@@ -24,7 +24,6 @@ int CV::CVFlash() {
 	Mat normalizedImg = viewTransformation.getOutputImgToFlashFinder();
 	flashFinder.getFlash(normalizedImg);
 	int index = flashFinder.getIndex();
-	//int index = -1;
 	return index;
 };
 
