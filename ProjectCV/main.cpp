@@ -1,12 +1,14 @@
-#include "mainwindow.h"
+#include "game.h"
 #include <QApplication>
 CV *computerVision;
+Game *game;
 
 int main(int argc, char *argv[]) {
 	computerVision = new CV();
     QApplication a(argc, argv);
-    MainWindow *w = new MainWindow(computerVision);
-    w->show();
+	
+	game = new Game(computerVision);
+	game->show();
 
     return a.exec();
 }

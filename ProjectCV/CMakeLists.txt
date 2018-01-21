@@ -1,6 +1,11 @@
 ﻿cmake_minimum_required(VERSION 3.9.3)
+set(OpenCV_DIR "C:/opencv/opencvInstall")
+find_package(OpenCV    3.3.0    REQUIRED)
 
-project(GUI)
+
+project(ProjectCV)
+
+
 
 include_directories(${QT_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR} ${OpenCV_INCLUDE_DIRS})
 find_package(Qt5Widgets)
@@ -9,45 +14,36 @@ find_package(Qt5Core)
 find_package(QT5)
 
 
-set(GUI_SRCS 
-box.cpp
-dialog.cpp
-game.cpp
-main.cpp
-mainwindow.cpp
-moc_dialog.cpp
-moc_game.cpp
-moc_mainwindow.cpp
-settings.cpp
-ViewTransformation.cpp
+set(ProjectCV_SRCS
+CV.cpp
 Finder.cpp
 FindSquare.cpp
-FrameFinder.cpp	
-CV.cpp
 FlashFinder.cpp
+FrameFinder.cpp
+game.cpp
+icon.cpp
+main.cpp
+moc_game.cpp
+settings.cpp
+ViewTransformation.cpp
 )
 
-set(GUI_HEADERS
-box.h
+set(ProjectCV_HEADERS
 CV.h
-dialog.h
 Finder.h
 FindSquare.h
-FrameFinder.h	
 FlashFinder.h
+FrameFinder.h
 game.h
-mainwindow.h
+icon.h
 settings.h
-ui_dialog.h
-ui_game.h
-ui_mainwindow.h
 ViewTransformation.h
 ) 
 
-add_executable(GUI ${GUI_SRCS} ${GUI_HEADERS})
+add_executable(ProjectCV ${ProjectCV_SRCS} ${ProjectCV_HEADERS})
 
 
-target_link_libraries(GUI
+target_link_libraries(ProjectCV
      Qt5::Widgets
      Qt5::Core
      Qt5::Gui

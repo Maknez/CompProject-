@@ -2,23 +2,28 @@
 #include "settings.h"
 #include "stdlib.h"
 #include <QGraphicsTextItem>
-#include <windows.h>
-#pragma comment(lib, "Winmm.lib")
+#include <QAbstractButton>
+#include <QApplication>
+#include <QWidget>
+#include <QTime>
+#include <QObject>
 
-Game::Game(QWidget *parent) : QGraphicsView(parent)
-{
+Game::Game(CV *computerVision, QWidget *parent) : QGraphicsView(parent)
+{	
+	this->computerVission = computerVision;
 	QWidget::setWindowTitle("Memory Game");
+	QGraphicsView::FullViewportUpdate;
 	init();
-	setScene(menuScene);
 }
 
 Game::~Game(){}
+
 void Game::init() {
 	createMenuScene();
 	createGameScene();
 	createWinScene();
+	setScene(menuScene);
 }
-
 void Game::createMenuScene() {
 	menuScene = new QGraphicsScene();
 	menuScene->setSceneRect(0, 0, this->width, this->height);
@@ -53,7 +58,6 @@ void Game::createGameScene() {
 	int addY = 25;
 
 	for (int i = 0; i < 12; i++) {
-		this->tableOfIcons[i]->setButton(new QPushButton(""));
 		if (x % 3 == 0) {
 			addY = (y * 125) + 25;
 			addX = 25;
@@ -74,8 +78,8 @@ void Game::createGameScene() {
 void Game::createWinScene() {
 	winScene = new QGraphicsScene();
 	winScene->setSceneRect(0, 0, this->width, this->height);
-	QGraphicsTextItem *text = new QGraphicsTextItem("Your Won");
-	text->setPos(110, 150);
+	QGraphicsTextItem *text = new QGraphicsTextItem("You Won");
+	text->setPos(112, 150);
 	QFont stringFont("arial", 30);
 	text->setFont(stringFont);
 
@@ -111,10 +115,11 @@ void Game::createFindFrameScene(QString info, int y) {
 void Game::closeWindow() {
 	this->close();
 }
-
+/************************************************************************/
 void Game::findFrame() {
-	frameFound = true; ///////////////////////////////////////////////////////////////
-	if(frameFound)
+	computerVission->openCam();
+	frameFound = computerVission->CVFrame();
+	if(!frameFound)
 		createFindFrameScene("Found", 135);
 	else
 		createFindFrameScene("Not Found", 100);
@@ -125,7 +130,7 @@ void Game::setMenuScene() {
 }
 
 void Game::setGameScene() {
-	if(frameFound) {
+	if(!frameFound) {
 		setScene(gameScene);
 		game();
 	}
@@ -134,34 +139,63 @@ void Game::setGameScene() {
 	}
 }
 
-void Game::game() { /////////////////////////////////////////////////////
+void Game::delay()
+{
+	QTime dieTime = QTime::currentTime().addSecs(1);
+	while (QTime::currentTime() < dieTime)
+		QCoreApplication::processEvents(QEventLoop::AllEvents, 10);
+}
+/************************************************************************/
+void Game::game() { 
 	randomizeTheCards();
+	computerVission->openCam();
+	Mat imgReaded;
 	do {
-		int number = (rand() % static_cast<int>(12));
-		uncoverTheCard(this->tableOfIcons[number]); 
-	} while (this->points != 6);
-
+		computerVission->vCapture.read(imgReaded);
+		int number = computerVission->CVFlash(imgReaded);
+		//cout << number;
+		if (number != -1) {
+			this->tableOfIcons[number]->emitClick();
+		}
+	} while (points != 6);
+	cvDestroyWindow("Original");
+	cvDestroyWindow("FlashView");
+	computerVission->vCapture.release();
 }
 
 void Game::initTheBoxes() {
 	QPushButton *tableOfButtons[12] = {
-		this->icon_1,
-		this->icon_2,
-		this->icon_3,
-		this->icon_4,
-		this->icon_5,
-		this->icon_6,
-		this->icon_7,
-		this->icon_8,
-		this->icon_9,
-		this->icon_10,
-		this->icon_11,
-		this->icon_12
+		this->icon_1 = new QPushButton(""),
+		this->icon_2 = new QPushButton(""),
+		this->icon_3 = new QPushButton(""),
+		this->icon_4 = new QPushButton(""),
+		this->icon_5 = new QPushButton(""),
+		this->icon_6 = new QPushButton(""),
+		this->icon_7 = new QPushButton(""),
+		this->icon_8 = new QPushButton(""),
+		this->icon_9 = new QPushButton(""),
+		this->icon_10 = new QPushButton(""),
+		this->icon_11 = new QPushButton(""),
+		this->icon_12 = new QPushButton("")
 	};
 
 	for (int i = 0; i < 12; i++) {
 		this->tableOfIcons[i] = new Icon(tableOfButtons[i]);
+		this->tableOfIcons[i]->getButton();
 	} 
+
+	connect(this->tableOfIcons[0]->getButton(), SIGNAL(clicked()), this, SLOT(clicked_icon_1()));
+	connect(this->tableOfIcons[1]->getButton(), SIGNAL(clicked()), this, SLOT(clicked_icon_2()));
+	connect(this->tableOfIcons[2]->getButton(), SIGNAL(clicked()), this, SLOT(clicked_icon_3()));
+	connect(this->tableOfIcons[3]->getButton(), SIGNAL(clicked()), this, SLOT(clicked_icon_4()));
+	connect(this->tableOfIcons[4]->getButton(), SIGNAL(clicked()), this, SLOT(clicked_icon_5()));
+	connect(this->tableOfIcons[5]->getButton(), SIGNAL(clicked()), this, SLOT(clicked_icon_6()));
+	connect(this->tableOfIcons[6]->getButton(), SIGNAL(clicked()), this, SLOT(clicked_icon_7()));
+	connect(this->tableOfIcons[7]->getButton(), SIGNAL(clicked()), this, SLOT(clicked_icon_8()));
+	connect(this->tableOfIcons[8]->getButton(), SIGNAL(clicked()), this, SLOT(clicked_icon_9()));
+	connect(this->tableOfIcons[9]->getButton(), SIGNAL(clicked()), this, SLOT(clicked_icon_10()));
+	connect(this->tableOfIcons[10]->getButton(), SIGNAL(clicked()), this, SLOT(clicked_icon_11()));
+	connect(this->tableOfIcons[11]->getButton(), SIGNAL(clicked()), this, SLOT(clicked_icon_12()));
 }
 
 void Game::randomizeTheCards() {
@@ -170,11 +204,11 @@ void Game::randomizeTheCards() {
 		this->tableOfIcons[i]->setImage(setting.random(i) + ".gif");
 	}
 }
-
-void Game::uncoverTheCard(Icon *box) { 
+void Game::uncoverTheCard(Icon *box) {
 	if (!(box->getCover())) {
 		if (countOfCards < 2) {
 			box->getButton()->setStyleSheet("background-image:url(" + this->pathToIcons + box->getImage() + ")");
+			//delay();
 			countOfCards++;
 			if (countOfCards == 1) {
 				this->prevBox = box;
@@ -185,12 +219,12 @@ void Game::uncoverTheCard(Icon *box) {
 					box->getButton()->setStyleSheet("background-image:url('')");
 					this->prevBox->setCover(false);
 					box->setCover(false);
-					PlaySound(TEXT("C:/opencv/projectCpp/OtherFiles/testSounds/failure.wav"), NULL, SND_FILENAME);
+					//PlaySound(TEXT("C:/opencv/projectCppSources/OtherFiles/testSounds/failure.wav"), NULL, SND_ASYNC);
 				}
 				else if (box->getButton() != this->prevBox->getButton()) {
 					this->points++;
 					this->prevBox->setCover(true);
-					PlaySound(TEXT("C:/opencv/projectCpp/OtherFiles/testSounds/success.wav"), NULL, SND_FILENAME);
+					//PlaySound(TEXT("C:/opencv/projectCpp/OtherFilesSources/testSounds/success.wav"), NULL, SND_ASYNC);
 					box->setCover(true);
 					if (points == 6) {
 						setScene(winScene);
@@ -201,6 +235,55 @@ void Game::uncoverTheCard(Icon *box) {
 		}
 	}
 }
+
+void Game::clicked_icon_1() {
+	uncoverTheCard(this->tableOfIcons[0]);
+}
+
+void Game::clicked_icon_2() {
+	uncoverTheCard(this->tableOfIcons[1]);
+}
+
+void Game::clicked_icon_3() {
+	uncoverTheCard(this->tableOfIcons[2]);
+}
+
+void Game::clicked_icon_4() {
+	uncoverTheCard(this->tableOfIcons[3]);
+}
+
+void Game::clicked_icon_5() {
+	uncoverTheCard(this->tableOfIcons[4]);
+}
+
+void Game::clicked_icon_6() {
+	uncoverTheCard(this->tableOfIcons[5]);
+}
+
+void Game::clicked_icon_7() {
+	uncoverTheCard(this->tableOfIcons[6]);
+}
+
+void Game::clicked_icon_8() {
+	uncoverTheCard(this->tableOfIcons[7]);
+}
+
+void Game::clicked_icon_9() {
+	uncoverTheCard(this->tableOfIcons[8]);
+}
+
+void Game::clicked_icon_10() {
+	uncoverTheCard(this->tableOfIcons[9]);
+}
+
+void Game::clicked_icon_11() {
+	uncoverTheCard(this->tableOfIcons[10]);
+}
+
+void Game::clicked_icon_12() {
+	uncoverTheCard(this->tableOfIcons[11]);
+}
+
 
 
 

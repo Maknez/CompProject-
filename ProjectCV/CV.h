@@ -12,7 +12,7 @@ class CV {
 public:
 	CV() {};
 	bool CVFrame();
-	int CVFlash();
+	int CVFlash(Mat imgReaded);
 	Mat image;
 	FrameFinder frameFinder;
 	FlashFinder flashFinder;
@@ -22,6 +22,8 @@ public:
 	bool flag;
 	VideoCapture vCapture;
 	void openCam();
+	void closeCam();
+	Mat imgOriginal;
 private:
 
 };

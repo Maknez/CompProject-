@@ -1,11 +1,12 @@
 #include "icon.h"
 #include <QPushButton>
-
+#include <windows.h>
+#include <QObject>
 Icon::Icon(QPushButton * button) {
 	isUncovered = false;
 	this->button = button;
 }
-Icon::Icon() {}
+
 Icon::~Icon() {}
 
 void Icon::setButton(QPushButton *button) {
@@ -30,3 +31,9 @@ QString Icon::getImage() {
 bool Icon::getCover() {
 	return this->isUncovered;
 }
+
+void Icon::emitClick() {
+	//Sleep(100);
+	this->button->click();
+}
+

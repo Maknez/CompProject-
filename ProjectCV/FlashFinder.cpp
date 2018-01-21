@@ -34,8 +34,9 @@ void FlashFinder::getFlash(Mat imgOriginal) {
 	
 	waitKey(30);
 
-	imshow("ABCORIGINAL", imgOriginal);
+	imshow("Original", imgOriginal);
 	imshow("FlashView", finder.binaryImg);
+	
 };
 
 void FlashFinder::setIndex() {

@@ -1,6 +1,7 @@
 #ifndef Box_HEADER
 #define Box_HEADER
 #include <QPushButton>
+#include <QGraphicsSceneMouseEvent>
 class Icon {
 	private:
 		QPushButton *button;
@@ -8,7 +9,6 @@ class Icon {
 		bool isUncovered;
 	public:
 		Icon(QPushButton*);
-		Icon();
 		~Icon();
 		void setButton(QPushButton *);
 		void setImage(QString);
@@ -16,6 +16,7 @@ class Icon {
 		QPushButton* getButton();
 		QString getImage();
 		bool getCover();
+		void emitClick();
 };
 
 #endif
