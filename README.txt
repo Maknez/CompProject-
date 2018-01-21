@@ -1,1 +1,0 @@
-To co tworzy sie przy kompilacji projektuQT w QT Creatorze jest w ignorze i nie bedzie wrzucane na gita
