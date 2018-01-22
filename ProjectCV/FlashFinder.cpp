@@ -33,9 +33,11 @@ void FlashFinder::getFlash(Mat imgOriginal) {
 	}	
 	
 	waitKey(30);
-
-	imshow("Original", imgOriginal);
-	imshow("FlashView", finder.binaryImg);
+	Mat flippedImage1, flippedImage2;
+	flip(imgOriginal, flippedImage1, 1);
+	flip(finder.binaryImg, flippedImage2, 1);
+	imshow("Original", flippedImage1);
+	imshow("FlashView", flippedImage2);
 	
 };
 

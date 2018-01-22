@@ -87,7 +87,7 @@ void Game::createWinScene() {
 	this->endTheGame->move(0, 350);
 	this->endTheGame->resize(400, 175);
 
-	connect(this->endTheGame, SIGNAL(clicked()), this, SLOT(closeWindow()));
+	connect(this->endTheGame, SIGNAL(clicked()), this, SLOT(setMenuScene()));
 
 	winScene->addWidget(this->endTheGame);
 	winScene->addItem(text);
@@ -117,7 +117,6 @@ void Game::closeWindow() {
 }
 /************************************************************************/
 void Game::findFrame() {
-	computerVission->openCam();
 	frameFound = computerVission->CVFrame();
 	if(!frameFound)
 		createFindFrameScene("Found", 135);
@@ -135,13 +134,13 @@ void Game::setGameScene() {
 		game();
 	}
 	else {
-		createFindFrameScene("Setup Camera", 70);
+		createFindFrameScene("Setup camera", 70);
 	}
 }
 
 void Game::delay()
 {
-	QTime dieTime = QTime::currentTime().addSecs(1);
+	QTime dieTime = QTime::currentTime().addSecs(0.10);
 	while (QTime::currentTime() < dieTime)
 		QCoreApplication::processEvents(QEventLoop::AllEvents, 10);
 }
@@ -208,7 +207,7 @@ void Game::uncoverTheCard(Icon *box) {
 	if (!(box->getCover())) {
 		if (countOfCards < 2) {
 			box->getButton()->setStyleSheet("background-image:url(" + this->pathToIcons + box->getImage() + ")");
-			//delay();
+			delay();
 			countOfCards++;
 			if (countOfCards == 1) {
 				this->prevBox = box;
