@@ -22,10 +22,10 @@ public:
 	Mat getOutputImgToFlashFinder();
 	void matTransformation(Mat image, FindSquare& findSquare);
 private:
-	Finder finder;				// stad bedzie InputArray src do warpPerspective()
-	Mat transformMatrix;		// do tego przypiszemy wynik getPerspective(),  czyli InputArray M w funkcji warpPerspective()
+	Finder finder;				
+	Mat transformMatrix;		
 	Point2f dst[4];
 	Point2f src[4];
 	void sortVector(FindSquare &findSquare);
-	Mat outputImgToFlashFinder = Mat::zeros(Size(600, 800), CV_64FC1); //OutputArray dst w warpPerspecitve()
+	Mat outputImgToFlashFinder = Mat::zeros(Size(600, 800), CV_64FC1); 
 };

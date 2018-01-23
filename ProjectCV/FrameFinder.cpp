@@ -11,7 +11,6 @@ void FrameFinder::saveBinaryImg(VideoCapture vCapture) {
 		Mat imgOriginal;
 		vCapture.read(imgOriginal);
 		inRange(imgOriginal, Scalar(H_MIN, S_MIN, V_MIN), Scalar(H_MAX, S_MAX, V_MAX), finder.binaryImg1);
-		//inRange(imgOriginal, Scalar(H_MIN_2, S_MIN_2, V_MIN_2), Scalar(H_MAX_2, S_MAX_2, V_MAX_2), finder.binaryImg2);
 		add(finder.binaryImg1, finder.binaryImg1, finder.binaryImg);
 		resize(imgOriginal, imgOriginal, Size(finder.WINDOW_WIDTH, finder.WINDOW_HEIGHT));
 

@@ -31,12 +31,12 @@ private:
 	float indexX, indexY;
 	const float width = 600, height = 800;
 	Point p, poziomXpoczatek, poziomXkoniec, poziomYpoczatek, poziomYkoniec;
-	const int H_MIN = 117;
+	const int H_MIN = 0;
 	const int H_MAX = 255;
-	const int S_MIN = 251;
+	const int S_MIN = 0;
 	const int S_MAX = 255;
-	const int V_MIN = 0;
-	const int V_MAX = 157;
+	const int V_MIN = 246;
+	const int V_MAX = 255;
 	
 	const int RED_COLOR = 255;
 

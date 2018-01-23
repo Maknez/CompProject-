@@ -7,7 +7,7 @@ bool CV::CVFrame() {
 	openCam();
 	while (findSquare.getErrorFrameNotFoundFlag()) {
 		
-		//frameFinder.saveBinaryImg(vCapture);
+		frameFinder.saveBinaryImg(vCapture);
 		image = imread("FrameImage.jpg", 1);
 
 		findSquare.findSquares(image);

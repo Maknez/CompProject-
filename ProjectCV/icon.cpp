@@ -33,7 +33,6 @@ bool Icon::getCover() {
 }
 
 void Icon::emitClick() {
-	//Sleep(100);
 	this->button->click();
 }
 

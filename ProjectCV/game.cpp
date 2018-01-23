@@ -117,7 +117,7 @@ void Game::createFindFrameScene(QString info, int y) {
 void Game::closeWindow() {
 	this->close();
 }
-/************************************************************************/
+
 void Game::findFrame() {
 	frameFound = computerVission->CVFrame();
 	if (!frameFound)
@@ -153,7 +153,6 @@ void Game::delay()
 	while (QTime::currentTime() < dieTime)
 		QCoreApplication::processEvents(QEventLoop::AllEvents, 10);
 }
-/************************************************************************/
 void Game::game() {
 	randomizeTheCards();
 	computerVission->openCam();
@@ -161,7 +160,6 @@ void Game::game() {
 		do {
 		computerVission->vCapture.read(imgReaded);
 		int number = computerVission->CVFlash(imgReaded);
-		//cout << number;
 		if (number != -1) {
 			this->tableOfIcons[number]->emitClick();
 		}
@@ -243,12 +241,10 @@ void Game::uncoverTheCard(Icon *box) {
 					box->getButton()->setStyleSheet("background-image:url('')");
 					this->prevBox->setCover(false);
 					box->setCover(false);
-					// PlaySound(TEXT("C:/opencv/projectCppSources/OtherFiles/testSounds/failure.wav"), NULL, SND_ASYNC);
 				}
 				else if (box->getButton() != this->prevBox->getButton()) {
 					this->points++;
 					this->prevBox->setCover(true);
-					// PlaySound(TEXT("C:/opencv/projectCpp/OtherFilesSources/testSounds/success.wav"), NULL, SND_ASYNC);
 					box->setCover(true);
 					if (points == 6) {
 						setScene(winScene);

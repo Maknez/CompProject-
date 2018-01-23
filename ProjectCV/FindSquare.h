@@ -18,12 +18,12 @@ using namespace std;
 class FindSquare {
 public:
 	FindSquare() {};
-	void findSquares(const Mat& image); // Wyjeba³em static jak cos to trza dodaæ
+	void findSquares(const Mat& image);
 	Point2f getVector(int temp);
 	bool errorFrameNotFoundFlag = true;
 	bool getErrorFrameNotFoundFlag();
 private:
-	double angle(Point pt1, Point pt2, Point pt0); // Wyjeba³em static jak cos to trza dodaæ
+	double angle(Point pt1, Point pt2, Point pt0);
 	int thresh = 50, N = 5;
 	vector<vector<Point> > squares;
 	void setErrorFrameNotFoundFlag(bool flag);

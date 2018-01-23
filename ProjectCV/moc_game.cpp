@@ -1,11 +1,3 @@
-/****************************************************************************
-** Meta object code from reading C++ file 'game.h'
-**
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.6.3)
-**
-** WARNING! All changes made in this file will be lost!
-*****************************************************************************/
-
 #include "game.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>

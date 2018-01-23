@@ -73,7 +73,6 @@ class Game : public QGraphicsView
 		void closeWindow();
 		void findFrame();
 
-		// Icons
 		void clicked_icon_1();
 		void clicked_icon_2();
 		void clicked_icon_3();

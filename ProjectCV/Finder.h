@@ -25,9 +25,7 @@ public:
 	bool useMorphOps = true;
 
 	 const int WINDOW_WIDTH = 1280;
-	//const int WINDOW_WIDTH = 352;
 	 const int WINDOW_HEIGHT = 720;
-	//const int WINDOW_HEIGHT = 288;
 
 	void morphOps(Mat &thresh);
 };

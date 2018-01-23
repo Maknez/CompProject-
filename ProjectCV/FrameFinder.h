@@ -18,12 +18,6 @@ private:
 	int S_MAX = 179;
 	int V_MIN = 140;
 	int V_MAX = 246;
-	/*const int H_MIN_2 = 30;
-	const int H_MAX_2 = 82;
-	const int S_MIN_2 = 56;
-	const int S_MAX_2 = 128;
-	const int V_MIN_2 = 170;
-	const int V_MAX_2 = 255;*/
 	void createBars();
 	void on_trackbar(int, void*);
 };
