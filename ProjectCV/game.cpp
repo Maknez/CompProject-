@@ -9,14 +9,14 @@
 #include <QObject>
 
 Game::Game(CV *computerVision, QWidget *parent) : QGraphicsView(parent)
-{	
+{
 	this->computerVission = computerVision;
 	QWidget::setWindowTitle("Memory Game");
 	QGraphicsView::FullViewportUpdate;
 	init();
 }
 
-Game::~Game(){}
+Game::~Game() {}
 
 void Game::init() {
 	createMenuScene();
@@ -49,7 +49,7 @@ void Game::createMenuScene() {
 
 void Game::createGameScene() {
 	initTheBoxes();
-	gameScene = new QGraphicsScene(); 
+	gameScene = new QGraphicsScene();
 	gameScene->setSceneRect(0, 0, this->width, this->height);
 
 	int y = 0;
@@ -63,7 +63,8 @@ void Game::createGameScene() {
 			addX = 25;
 			y++;
 			x = 0;
-		} else {
+		}
+		else {
 			addX = (x * 125) + 25;
 			if (x == 1)
 				addX = (x * 125) + 25;
@@ -117,10 +118,8 @@ void Game::closeWindow() {
 }
 /************************************************************************/
 void Game::findFrame() {
-	// computerVission->openCam();
-	// frameFound = computerVission->CVFrame();
-	frameFound = false;
-	if(!frameFound)
+	frameFound = computerVission->CVFrame();
+	if (!frameFound)
 		createFindFrameScene("Found", 135);
 	else
 		createFindFrameScene("Not Found", 100);
@@ -131,25 +130,25 @@ void Game::setMenuScene() {
 }
 
 void Game::setGameScene() {
-	if(!frameFound) {
+	if (!frameFound) {
 		setScene(gameScene);
 		game();
 	}
 	else {
-		createFindFrameScene("Setup Camera", 70);
+		createFindFrameScene("Setup camera", 70);
 	}
 }
 
 void Game::delay()
 {
-	QTime dieTime = QTime::currentTime().addSecs(1);
+	QTime dieTime = QTime::currentTime().addSecs(0.10);
 	while (QTime::currentTime() < dieTime)
 		QCoreApplication::processEvents(QEventLoop::AllEvents, 10);
 }
 /************************************************************************/
-void Game::game() { 
+void Game::game() {
 	randomizeTheCards();
-	/* computerVission->openCam();
+	computerVission->openCam();
 	Mat imgReaded;
 	do {
 		computerVission->vCapture.read(imgReaded);
@@ -161,7 +160,7 @@ void Game::game() {
 	} while (points != 6);
 	cvDestroyWindow("Original");
 	cvDestroyWindow("FlashView");
-	computerVission->vCapture.release();*/
+	computerVission->vCapture.release();
 }
 
 void Game::initTheBoxes() {
@@ -183,7 +182,7 @@ void Game::initTheBoxes() {
 	for (int i = 0; i < 12; i++) {
 		this->tableOfIcons[i] = new Icon(tableOfButtons[i]);
 		this->tableOfIcons[i]->getButton();
-	} 
+	}
 
 	connect(this->tableOfIcons[0]->getButton(), SIGNAL(clicked()), this, SLOT(clicked_icon_1()));
 	connect(this->tableOfIcons[1]->getButton(), SIGNAL(clicked()), this, SLOT(clicked_icon_2()));
@@ -209,6 +208,7 @@ void Game::uncoverTheCard(Icon *box) {
 	if (!(box->getCover())) {
 		if (countOfCards < 2) {
 			box->getButton()->setStyleSheet("background-image:url(" + this->pathToIcons + box->getImage() + ")");
+
 			countOfCards++;
 			if (countOfCards == 1) {
 				this->prevBox = box;

@@ -6,15 +6,16 @@ using namespace cv;
 bool CV::CVFrame() {
 	openCam();
 	while (findSquare.getErrorFrameNotFoundFlag()) {
-		vCapture.read(imgOriginal);
-		frameFinder.saveBinaryImg(imgOriginal);
-		image = imread("1.jpg", 1);
+		
+//		frameFinder.saveBinaryImg(vCapture);
+		image = imread("FrameImage.jpg", 1);
 
 		findSquare.findSquares(image);
 		_getch();
 	}
 	flag = findSquare.getErrorFrameNotFoundFlag(); 
 	cvDestroyWindow("FrameView");
+	cvDestroyWindow("trackbars");
 	closeCam();
 	return flag;
 }
