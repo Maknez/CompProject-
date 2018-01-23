@@ -29,7 +29,7 @@ class Game : public QGraphicsView
 		void createFindFrameScene(QString, int);
 		void createWinScene();
 
-		QString pathToIcons = "C:/opencv/projectCpp/OtherFiles/memoryGameIcons/";
+		QString pathToIcons = "C:/opencv/ProjectAppsSources/OtherFiles/memoryGameIcons/";
 
 		Icon *tableOfIcons[12];
 		Icon *prevBox;
@@ -41,7 +41,7 @@ class Game : public QGraphicsView
 		QPushButton *endTheGame;
 
 		QGraphicsScene *gameScene;
-		
+		int table[12] = { 0,1,2,3,4,5,6,7,8,9,10,11 };
 		QPushButton *icon_1;
 		QPushButton *icon_2;
 		QPushButton *icon_3;

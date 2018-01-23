@@ -25,7 +25,7 @@ QString Settings::random(int iterator) {
 	srand(time(NULL));
     int number;
     do {
-        number = 1 + (rand() % static_cast<int>(6));
+        number = 1 + rand() % 6;
     } while(!validation(number));
     tab[iterator] = number;
     return toString(number);

@@ -134,6 +134,7 @@ void Game::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
         case 13: _t->clicked_icon_10(); break;
         case 14: _t->clicked_icon_11(); break;
         case 15: _t->clicked_icon_12(); break;
+
         default: ;
         }
     }

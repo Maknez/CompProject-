@@ -7,6 +7,7 @@
 #include <QWidget>
 #include <QTime>
 #include <QObject>
+#include <algorithm>
 
 Game::Game(CV *computerVision, QWidget *parent) : QGraphicsView(parent)
 {
@@ -88,7 +89,7 @@ void Game::createWinScene() {
 	this->endTheGame->move(0, 350);
 	this->endTheGame->resize(400, 175);
 
-	connect(this->endTheGame, SIGNAL(clicked()), this, SLOT(closeWindow()));
+	connect(this->endTheGame, SIGNAL(clicked()), this, SLOT(setMenuScene()));
 
 	winScene->addWidget(this->endTheGame);
 	winScene->addItem(text);
@@ -141,7 +142,7 @@ void Game::setGameScene() {
 
 void Game::delay()
 {
-	QTime dieTime = QTime::currentTime().addSecs(0.10);
+	QTime dieTime = QTime::currentTime().addMSecs(200);
 	while (QTime::currentTime() < dieTime)
 		QCoreApplication::processEvents(QEventLoop::AllEvents, 10);
 }
@@ -150,7 +151,7 @@ void Game::game() {
 	randomizeTheCards();
 	computerVission->openCam();
 	Mat imgReaded;
-	do {
+		do {
 		computerVission->vCapture.read(imgReaded);
 		int number = computerVission->CVFlash(imgReaded);
 		//cout << number;
@@ -178,10 +179,10 @@ void Game::initTheBoxes() {
 		this->icon_11 = new QPushButton(""),
 		this->icon_12 = new QPushButton("")
 	};
-
 	for (int i = 0; i < 12; i++) {
-		this->tableOfIcons[i] = new Icon(tableOfButtons[i]);
+		this->tableOfIcons[i] = new Icon(tableOfButtons[table[i]]);
 		this->tableOfIcons[i]->getButton();
+
 	}
 
 	connect(this->tableOfIcons[0]->getButton(), SIGNAL(clicked()), this, SLOT(clicked_icon_1()));
@@ -200,9 +201,20 @@ void Game::initTheBoxes() {
 
 void Game::randomizeTheCards() {
 	Settings setting;
-	for (int i = 0; i < 12; i++) {
-		this->tableOfIcons[i]->setImage(setting.random(i) + ".gif");
+
+	int los;
+	srand(time(NULL));
+	los = 1 + rand() % 12;
+
+	for (int i = 0; i < los; i++) {
+		random_shuffle(begin(table), end(table));
 	}
+
+	for (int i = 0; i < 12; i++) {
+		this->tableOfIcons[table[i]]->setImage(setting.random(i) + ".gif");
+	}
+
+
 }
 void Game::uncoverTheCard(Icon *box) {
 	if (!(box->getCover())) {
@@ -238,6 +250,9 @@ void Game::uncoverTheCard(Icon *box) {
 		}
 	}
 }
+
+
+
 
 void Game::clicked_icon_1() {
 	if (!stopEvents) {
