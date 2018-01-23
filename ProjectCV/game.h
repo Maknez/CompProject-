@@ -15,7 +15,7 @@ class Game : public QGraphicsView
 		void delay();
 	private:
 		QWidget *parent;
-
+		bool flagaaa = false;
 		int height = 525;
 		int width = 400;
 		CV *computerVission;

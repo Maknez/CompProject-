@@ -132,6 +132,13 @@ void Game::setMenuScene() {
 
 void Game::setGameScene() {
 	if (!frameFound) {
+		if (flagaaa) {
+			createGameScene();
+			createWinScene();
+			flagaaa = false;
+		}
+		else {}
+
 		setScene(gameScene);
 		game();
 	}
@@ -159,6 +166,8 @@ void Game::game() {
 			this->tableOfIcons[number]->emitClick();
 		}
 	} while (points != 6);
+	points = 0;
+	flagaaa = true;
 	cvDestroyWindow("Original");
 	cvDestroyWindow("FlashView");
 	computerVission->vCapture.release();
