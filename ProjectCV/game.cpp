@@ -117,8 +117,9 @@ void Game::closeWindow() {
 }
 /************************************************************************/
 void Game::findFrame() {
-	computerVission->openCam();
-	frameFound = computerVission->CVFrame();
+	// computerVission->openCam();
+	// frameFound = computerVission->CVFrame();
+	frameFound = false;
 	if(!frameFound)
 		createFindFrameScene("Found", 135);
 	else
@@ -148,7 +149,7 @@ void Game::delay()
 /************************************************************************/
 void Game::game() { 
 	randomizeTheCards();
-	computerVission->openCam();
+	/* computerVission->openCam();
 	Mat imgReaded;
 	do {
 		computerVission->vCapture.read(imgReaded);
@@ -160,7 +161,7 @@ void Game::game() {
 	} while (points != 6);
 	cvDestroyWindow("Original");
 	cvDestroyWindow("FlashView");
-	computerVission->vCapture.release();
+	computerVission->vCapture.release();*/
 }
 
 void Game::initTheBoxes() {
@@ -208,23 +209,25 @@ void Game::uncoverTheCard(Icon *box) {
 	if (!(box->getCover())) {
 		if (countOfCards < 2) {
 			box->getButton()->setStyleSheet("background-image:url(" + this->pathToIcons + box->getImage() + ")");
-			//delay();
 			countOfCards++;
 			if (countOfCards == 1) {
 				this->prevBox = box;
 			}
 			if (countOfCards == 2) {
+				stopEvents = true;
+				delay();
+				stopEvents = false;
 				if (box->getImage() != this->prevBox->getImage()) {
 					this->prevBox->getButton()->setStyleSheet("background-image:url('')");
 					box->getButton()->setStyleSheet("background-image:url('')");
 					this->prevBox->setCover(false);
 					box->setCover(false);
-					//PlaySound(TEXT("C:/opencv/projectCppSources/OtherFiles/testSounds/failure.wav"), NULL, SND_ASYNC);
+					// PlaySound(TEXT("C:/opencv/projectCppSources/OtherFiles/testSounds/failure.wav"), NULL, SND_ASYNC);
 				}
 				else if (box->getButton() != this->prevBox->getButton()) {
 					this->points++;
 					this->prevBox->setCover(true);
-					//PlaySound(TEXT("C:/opencv/projectCpp/OtherFilesSources/testSounds/success.wav"), NULL, SND_ASYNC);
+					// PlaySound(TEXT("C:/opencv/projectCpp/OtherFilesSources/testSounds/success.wav"), NULL, SND_ASYNC);
 					box->setCover(true);
 					if (points == 6) {
 						setScene(winScene);
@@ -237,51 +240,74 @@ void Game::uncoverTheCard(Icon *box) {
 }
 
 void Game::clicked_icon_1() {
-	uncoverTheCard(this->tableOfIcons[0]);
+	if (!stopEvents) {
+		uncoverTheCard(this->tableOfIcons[0]);
+	}
 }
 
 void Game::clicked_icon_2() {
-	uncoverTheCard(this->tableOfIcons[1]);
+	if (!stopEvents) {
+		uncoverTheCard(this->tableOfIcons[1]);
+	}
 }
-
 void Game::clicked_icon_3() {
-	uncoverTheCard(this->tableOfIcons[2]);
+	if (!stopEvents) {
+		uncoverTheCard(this->tableOfIcons[2]);
+	}
 }
 
 void Game::clicked_icon_4() {
-	uncoverTheCard(this->tableOfIcons[3]);
+	if (!stopEvents) {
+		uncoverTheCard(this->tableOfIcons[3]);
+	}
 }
 
 void Game::clicked_icon_5() {
-	uncoverTheCard(this->tableOfIcons[4]);
+	if (!stopEvents) {
+		uncoverTheCard(this->tableOfIcons[4]);
+	}
 }
 
 void Game::clicked_icon_6() {
-	uncoverTheCard(this->tableOfIcons[5]);
+	if (!stopEvents) {
+		uncoverTheCard(this->tableOfIcons[5]);
+	}
 }
 
 void Game::clicked_icon_7() {
-	uncoverTheCard(this->tableOfIcons[6]);
+	if (!stopEvents) {
+		uncoverTheCard(this->tableOfIcons[6]);
+	}
 }
 
 void Game::clicked_icon_8() {
-	uncoverTheCard(this->tableOfIcons[7]);
+	if (!stopEvents) {
+		uncoverTheCard(this->tableOfIcons[7]);
+	}
 }
 
 void Game::clicked_icon_9() {
-	uncoverTheCard(this->tableOfIcons[8]);
+	if (!stopEvents) {
+		uncoverTheCard(this->tableOfIcons[8]);
+	}
 }
 
 void Game::clicked_icon_10() {
-	uncoverTheCard(this->tableOfIcons[9]);
+	if (!stopEvents) {
+		uncoverTheCard(this->tableOfIcons[9]);
+	}
 }
 
 void Game::clicked_icon_11() {
-	uncoverTheCard(this->tableOfIcons[10]);
+	if (!stopEvents) {
+		uncoverTheCard(this->tableOfIcons[10]);
+	}
 }
 
 void Game::clicked_icon_12() {
-	uncoverTheCard(this->tableOfIcons[11]);
+	if (!stopEvents) {
+		uncoverTheCard(this->tableOfIcons[11]);
+	}
 }
 
 

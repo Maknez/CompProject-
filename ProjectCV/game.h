@@ -21,13 +21,15 @@ class Game : public QGraphicsView
 		CV *computerVission;
 		bool frameFound = 1;
 
+		bool stopEvents = false;
+
 		void game();
 		void createMenuScene();
 		void createGameScene();
 		void createFindFrameScene(QString, int);
 		void createWinScene();
 
-		QString pathToIcons = "C:/opencv/ProjectAppsSources/OtherFiles/memoryGameIcons/";
+		QString pathToIcons = "C:/opencv/projectCpp/OtherFiles/memoryGameIcons/";
 
 		Icon *tableOfIcons[12];
 		Icon *prevBox;

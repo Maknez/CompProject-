@@ -1,6 +1,8 @@
 #include "settings.h"
 #include "stdlib.h"
+#include <cstdlib>
 #include <iostream>
+#include <ctime>
 
 Settings::Settings() {}
 
@@ -20,6 +22,7 @@ bool Settings::validation(int number) {
 }
 
 QString Settings::random(int iterator) {
+	srand(time(NULL));
     int number;
     do {
         number = 1 + (rand() % static_cast<int>(6));

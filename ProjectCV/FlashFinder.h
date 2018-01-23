@@ -37,6 +37,7 @@ private:
 	const int S_MAX = 255;
 	const int V_MIN = 0;
 	const int V_MAX = 157;
+	
 	const int RED_COLOR = 255;
 
 };

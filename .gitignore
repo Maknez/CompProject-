@@ -29,29 +29,26 @@ Thumbs.db
 
 
 OtherFiles/1.jpg
-ProjectQT/Debug/
-ProjectQT/.vs/
-ProjectQT/Release/
-ProjectQT/Profil/
-ProjectQT/ProjectQT.VC.db
-ProjectQT/ProjectQT.sln
-ProjectQT/ProjectQT.vcxproj.filters
-ProjectQT/x64/
-ProjectCpp/GUI/ALL_BUILD.vcxproj
-ProjectCpp/GUI/ALL_BUILD.vcxproj.filters
-ProjectCpp/GUI/CMakeCache.txt
-ProjectCpp/GUI/CMakeFiles
-ProjectCpp/GUI/Debug
-ProjectCpp/GUI/GUI.VC.VC.opendb
-ProjectCpp/GUI/GUI.VC.db
-ProjectCpp/GUI/GUI.dir
-ProjectCpp/GUI/GUI.sln
-ProjectCpp/GUI/GUI.vcxproj
-ProjectCpp/GUI/GUI.vcxproj.filters
-ProjectCpp/GUI/ZERO_CHECK.vcxproj
-ProjectCpp/GUI/ZERO_CHECK.vcxproj.filters
-ProjectCpp/GUI/cmake_install.cmake
-ProjectCpp/GUI/x64/
+ProjectCV/Debug/
+ProjectCV/.vs/
+ProjectCV/Release/
+ProjectCV/Profil/
+ProjectCV/ProjectCV.VC.db
+ProjectCV/ProjectCV.sln
+ProjectCV/ProjectCV.vcxproj.filters
+ProjectCV/ProjectCV.VC.VC.opendb
+ProjectCV/x64/
+ProjectCV/ALL_BUILD.vcxproj
+ProjectCV/ALL_BUILD.vcxproj.filters
+ProjectCV/ProjectCV.vcxproj
+ProjectCV/ProjectCV.vcxproj.filters
+ProjectCV/ZERO_CHECK.vcxproj
+ProjectCV/ZERO_CHECK.vcxproj.filters
+ProjectCV/CMakeCache.txt
+ProjectCV/CMakeFiles
+ProjectCV/cmake_install.cmake
+ProjectCV/Debug
+
 
 
 
